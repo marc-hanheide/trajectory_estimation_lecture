@@ -52,3 +52,9 @@ qtcreator-*
 CATKIN_IGNORE
 .$*.bkp
 .DS_Store
+celerybeat-schedule
+celerybeat-schedule-shm
+celerybeat-schedule-wal
+django-errors.log
+src/notebooks/django-errors.log
+src/notebooks/celerybeat-schedule

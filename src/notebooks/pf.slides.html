@@ -7592,67 +7592,7 @@ $$bel(x_t) = \eta \cdot p(z_t|x_t) \cdot bel^-(x_t)$$</p>
 </div>
 </div>
 </div>
-</div><div class="jp-Cell jp-CodeCell jp-Notebook-cell">
-<div class="jp-Cell-inputWrapper" tabindex="0">
-<div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
-</div>
-<div class="jp-InputArea jp-Cell-inputArea">
-<div class="jp-InputPrompt jp-InputArea-prompt">In [14]:</div>
-<div class="jp-CodeMirrorEditor jp-Editor jp-InputArea-editor" data-type="inline">
-<div class="cm-editor cm-s-jupyter">
-<div class="highlight hl-ipython3"><pre><span></span><span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
-<span class="kn">import</span> <span class="nn">matplotlib.pyplot</span> <span class="k">as</span> <span class="nn">plt</span>
-
-<span class="c1"># Initialize particles (positions) with uniform distribution</span>
-<span class="n">num_particles</span> <span class="o">=</span> <span class="mi">1000</span>
-<span class="n">particles</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">uniform</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">10</span><span class="p">,</span> <span class="n">num_particles</span><span class="p">)</span>  <span class="c1"># Robot could be anywhere from 0-10</span>
-
-<span class="c1"># Motion model: Move forward with noise</span>
-<span class="k">def</span> <span class="nf">move_particles</span><span class="p">(</span><span class="n">particles</span><span class="p">,</span> <span class="n">move_distance</span><span class="o">=</span><span class="mf">1.0</span><span class="p">,</span> <span class="n">noise_std</span><span class="o">=</span><span class="mf">0.2</span><span class="p">):</span>
-    <span class="k">return</span> <span class="n">particles</span> <span class="o">+</span> <span class="n">move_distance</span> <span class="o">+</span> <span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">normal</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="n">noise_std</span><span class="p">,</span> <span class="nb">len</span><span class="p">(</span><span class="n">particles</span><span class="p">))</span>
-
-<span class="c1"># Sensor model: Pose detection with noise</span>
-<span class="k">def</span> <span class="nf">weight_particles</span><span class="p">(</span><span class="n">particles</span><span class="p">,</span> <span class="n">pole_distance</span><span class="o">=</span><span class="mf">8.0</span><span class="p">,</span> <span class="n">measurement</span><span class="o">=</span><span class="mf">2.0</span><span class="p">,</span> <span class="n">noise_std</span><span class="o">=</span><span class="mf">0.3</span><span class="p">):</span>
-    <span class="c1"># Calculate expected measurement for each particle</span>
-    <span class="n">expected_measurements</span> <span class="o">=</span> <span class="n">pole_distance</span> <span class="o">-</span> <span class="n">particles</span>
-    <span class="c1"># Weight based on how well measurement matches expectation</span>
-    <span class="n">weights</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">exp</span><span class="p">(</span><span class="o">-</span><span class="mf">0.5</span> <span class="o">*</span> <span class="p">((</span><span class="n">expected_measurements</span> <span class="o">-</span> <span class="n">measurement</span><span class="p">)</span> <span class="o">/</span> <span class="n">noise_std</span><span class="p">)</span><span class="o">**</span><span class="mi">2</span><span class="p">)</span>
-    <span class="k">return</span> <span class="n">weights</span> <span class="o">/</span> <span class="nb">sum</span><span class="p">(</span><span class="n">weights</span><span class="p">)</span>  <span class="c1"># Normalize weights</span>
-
-<span class="c1"># Simulation loop</span>
-<span class="n">plt</span><span class="o">.</span><span class="n">figure</span><span class="p">(</span><span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">10</span><span class="p">,</span> <span class="mi">6</span><span class="p">))</span>
-
-<span class="c1"># Initial belief</span>
-<span class="n">plt</span><span class="o">.</span><span class="n">subplot</span><span class="p">(</span><span class="mi">3</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">)</span>
-<span class="n">plt</span><span class="o">.</span><span class="n">hist</span><span class="p">(</span><span class="n">particles</span><span class="p">,</span> <span class="n">bins</span><span class="o">=</span><span class="mi">10</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="s1">'b'</span><span class="p">,</span> <span class="n">density</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
-<span class="n">plt</span><span class="o">.</span><span class="n">title</span><span class="p">(</span><span class="s2">"Initial Belief (Uniform)"</span><span class="p">)</span>
-<span class="n">plt</span><span class="o">.</span><span class="n">xlim</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">20</span><span class="p">)</span>
-
-<span class="c1"># After movement</span>
-<span class="n">particles</span> <span class="o">=</span> <span class="n">move_particles</span><span class="p">(</span><span class="n">particles</span><span class="p">,</span> <span class="n">move_distance</span><span class="o">=</span><span class="mf">5.0</span><span class="p">,</span> <span class="n">noise_std</span><span class="o">=</span><span class="mf">0.5</span><span class="p">)</span>
-<span class="n">plt</span><span class="o">.</span><span class="n">subplot</span><span class="p">(</span><span class="mi">3</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">)</span>
-<span class="n">plt</span><span class="o">.</span><span class="n">hist</span><span class="p">(</span><span class="n">particles</span><span class="p">,</span> <span class="n">bins</span><span class="o">=</span><span class="mi">10</span><span class="p">,</span> <span class="n">density</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="s1">'y'</span><span class="p">)</span>
-<span class="n">plt</span><span class="o">.</span><span class="n">title</span><span class="p">(</span><span class="s2">"After Movement (Prediction Step)"</span><span class="p">)</span>
-<span class="n">plt</span><span class="o">.</span><span class="n">xlim</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">20</span><span class="p">)</span>
-
-<span class="c1"># After sensor update</span>
-<span class="n">weights</span> <span class="o">=</span> <span class="n">weight_particles</span><span class="p">(</span><span class="n">particles</span><span class="p">,</span> <span class="n">pole_distance</span><span class="o">=</span><span class="mf">8.0</span><span class="p">,</span> <span class="n">measurement</span><span class="o">=</span><span class="mf">2.0</span><span class="p">,</span> <span class="n">noise_std</span><span class="o">=</span><span class="mf">0.9</span><span class="p">)</span>
-<span class="c1"># Resample particles based on weights</span>
-<span class="n">resampled_indices</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">choice</span><span class="p">(</span><span class="nb">range</span><span class="p">(</span><span class="n">num_particles</span><span class="p">),</span> <span class="n">num_particles</span><span class="p">,</span> <span class="n">p</span><span class="o">=</span><span class="n">weights</span><span class="p">)</span>
-<span class="n">particles</span> <span class="o">=</span> <span class="n">particles</span><span class="p">[</span><span class="n">resampled_indices</span><span class="p">]</span>
-
-<span class="n">plt</span><span class="o">.</span><span class="n">subplot</span><span class="p">(</span><span class="mi">3</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">3</span><span class="p">)</span>
-<span class="n">plt</span><span class="o">.</span><span class="n">hist</span><span class="p">(</span><span class="n">particles</span><span class="p">,</span> <span class="n">bins</span><span class="o">=</span><span class="mi">10</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="s1">'g'</span><span class="p">,</span> <span class="n">density</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
-<span class="n">plt</span><span class="o">.</span><span class="n">title</span><span class="p">(</span><span class="s2">"After Sensor Update (Update Step)"</span><span class="p">)</span>
-<span class="n">plt</span><span class="o">.</span><span class="n">xlim</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">10</span><span class="p">)</span>
-
-<span class="n">plt</span><span class="o">.</span><span class="n">tight_layout</span><span class="p">()</span>
-<span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
-</pre></div>
-</div>
-</div>
-</div>
-</div>
+</div><div class="jp-Cell jp-CodeCell jp-Notebook-cell jp-mod-noInput">
 <div class="jp-Cell-outputWrapper">
 <div class="jp-Collapser jp-OutputCollapser jp-Cell-outputCollapser">
 </div>
@@ -7665,20 +7605,7 @@ $$bel(x_t) = \eta \cdot p(z_t|x_t) \cdot bel^-(x_t)$$</p>
 </div>
 </div>
 </div>
-</div><div class="jp-Cell jp-CodeCell jp-Notebook-cell jp-mod-noOutputs">
-<div class="jp-Cell-inputWrapper" tabindex="0">
-<div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
-</div>
-<div class="jp-InputArea jp-Cell-inputArea">
-<div class="jp-InputPrompt jp-InputArea-prompt">In [ ]:</div>
-<div class="jp-CodeMirrorEditor jp-Editor jp-InputArea-editor" data-type="inline">
-<div class="cm-editor cm-s-jupyter">
-<div class="highlight hl-ipython3"><pre><span></span> 
-</pre></div>
-</div>
-</div>
-</div>
-</div>
+</div><div class="jp-Cell jp-CodeCell jp-Notebook-cell jp-mod-noOutputs jp-mod-noInput">
 </div></section></section>
 </div>
 </div>
