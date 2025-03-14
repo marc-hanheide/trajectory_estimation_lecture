@@ -5,7 +5,7 @@
 <meta content="chrome=1" http-equiv="X-UA-Compatible"/>
 <meta content="yes" name="apple-mobile-web-app-capable"/>
 <meta content="black-translucent" name="apple-mobile-web-app-status-bar-style"/>
-<title>introduction slides</title><script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/2.0.3/jquery.min.js"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.1.10/require.min.js"></script><script type="module">
+<title>mercury slides</title><script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/2.0.3/jquery.min.js"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.1.10/require.min.js"></script><script type="module">
   import mermaid from 'https://cdnjs.cloudflare.com/ajax/libs/mermaid/10.7.0/mermaid.esm.min.mjs';
   mermaid.initialize({ startOnLoad: true });
 </script>
@@ -7473,201 +7473,64 @@ main {
 </div>
 <div class="jp-InputArea jp-Cell-inputArea"><div class="jp-InputPrompt jp-InputArea-prompt">
 </div><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput" data-mime-type="text/markdown">
-<h1 id="MA-MOROB-M02:-Trajectory-Estimation-(Semester-1)">MA-MOROB-M02: Trajectory Estimation (Semester 1)<a class="anchor-link" href="#MA-MOROB-M02:-Trajectory-Estimation-(Semester-1)">¶</a></h1><p><em>part of the Programme "Mobile Robotics" (M.Sc.) at the Bonn University</em></p>
-<h2 id="Methods-for-high-precision-trajectory-estimation-of-mobile-mapping-vehicles-on-crop-fields">Methods for high precision trajectory estimation of mobile mapping vehicles on crop fields<a class="anchor-link" href="#Methods-for-high-precision-trajectory-estimation-of-mobile-mapping-vehicles-on-crop-fields">¶</a></h2>
+<h1 id="Start">Start<a class="anchor-link" href="#Start">¶</a></h1>
 </div>
 </div>
 </div>
-</div></section></section><section><section>
-<div class="jp-Cell jp-MarkdownCell jp-Notebook-cell">
+</div></section></section><section><section><div class="jp-Cell jp-CodeCell jp-Notebook-cell jp-mod-noOutputs">
 <div class="jp-Cell-inputWrapper" tabindex="0">
 <div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
 </div>
-<div class="jp-InputArea jp-Cell-inputArea"><div class="jp-InputPrompt jp-InputArea-prompt">
-</div><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput" data-mime-type="text/markdown">
-<h1 id="Problem-Introduction">Problem Introduction<a class="anchor-link" href="#Problem-Introduction">¶</a></h1><!--
-* Add robot data recording video here
-* explain to want to come back multiple times, monitor crop growth
-* introduce the problem of robot localisation
-* ask about other scenarios where precision localisation is needed
-* explain the simplicity of a row (1D) in the strawberry tunnel case
--->
-<div align="middle">
-<video autoplay="" controls="" loop="" muted="" width="80%">
-<source src="thorvald-data.mp4" type="video/mp4"/>
-</video></div>
-<ul>
-<li>An Example of Crop Monitoring with a Mobile Robot</li>
-</ul>
-</div>
-</div>
-</div>
-</div></section></section><section><section>
-<div class="jp-Cell jp-MarkdownCell jp-Notebook-cell">
-<div class="jp-Cell-inputWrapper" tabindex="0">
-<div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
-</div>
-<div class="jp-InputArea jp-Cell-inputArea"><div class="jp-InputPrompt jp-InputArea-prompt">
-</div><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput" data-mime-type="text/markdown">
-<h1 id="Syllabus-%22Trajectory-Estimation%22">Syllabus "Trajectory Estimation"<a class="anchor-link" href="#Syllabus-%22Trajectory-Estimation%22">¶</a></h1><ol>
-<li><p>Problem Introduction and introduction to the Module</p>
-<ul>
-<li>Learning Outcomes</li>
-<li>Assessment<ul>
-<li>Oral Examination 50%</li>
-<li>Coursework (Jupyter Notebooks), 50%</li>
-</ul>
-</li>
-</ul>
-</li>
-<li><p>Representations of Trajectories</p>
-<ul>
-<li>1 -- 3 D</li>
-<li>Sequence of States, usually in $SE(3)$</li>
-<li>we have to deal with <em>noise</em></li>
-</ul>
-</li>
-</ol>
-</div>
-</div>
-</div>
-</div></section></section><section><section>
-<div class="jp-Cell jp-MarkdownCell jp-Notebook-cell">
-<div class="jp-Cell-inputWrapper" tabindex="0">
-<div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
-</div>
-<div class="jp-InputArea jp-Cell-inputArea"><div class="jp-InputPrompt jp-InputArea-prompt">
-</div><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput" data-mime-type="text/markdown">
-<h1 id="Global-and-Local-frames-of-reference">Global and Local frames of reference<a class="anchor-link" href="#Global-and-Local-frames-of-reference">¶</a></h1><h4 id="Local">Local<a class="anchor-link" href="#Local">¶</a></h4><ul>
-<li></li>
-<li>Dead reckoning, sources:<ul>
-<li>encoders, IMU</li>
-</ul>
-</li>
-</ul>
-</div>
-</div>
-</div>
-</div></section></section><section><section>
-<div class="jp-Cell jp-MarkdownCell jp-Notebook-cell">
-<div class="jp-Cell-inputWrapper" tabindex="0">
-<div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
-</div>
-<div class="jp-InputArea jp-Cell-inputArea"><div class="jp-InputPrompt jp-InputArea-prompt">
-</div><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput" data-mime-type="text/markdown">
-<h1 id="Classes-of-Probabilistic-Sequential-Models:">Classes of Probabilistic Sequential Models:<a class="anchor-link" href="#Classes-of-Probabilistic-Sequential-Models:">¶</a></h1><p><em>Probabilistic Graphical Models</em></p>
-<img alt="pgm" src="pgm-models.svg" width="50%">
-</img></div>
-</div>
-</div>
-</div></section><section>
-<div class="jp-Cell jp-MarkdownCell jp-Notebook-cell">
-<div class="jp-Cell-inputWrapper" tabindex="0">
-<div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
-</div>
-<div class="jp-InputArea jp-Cell-inputArea"><div class="jp-InputPrompt jp-InputArea-prompt">
-</div><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput" data-mime-type="text/markdown">
-<ol>
-<li><p><strong>Current state estimation based on past states and observations</strong>:</p>
-<ul>
-<li><strong>Filtering</strong> algorithms such as:<ul>
-<li>Kalman filter (for linear Gaussian systems)</li>
-<li>Extended Kalman filter (for nonlinear systems)</li>
-<li>Unscented Kalman filter (for highly nonlinear systems)</li>
-<li>Particle filter (for general non-Gaussian, nonlinear systems)</li>
-</ul>
-</li>
-<li>These algorithms compute $P(x_t | y_{1:t})$ - the probability of the current state $x_t$ given all observations $y_{1:t}$ up to now ($t$)</li>
-</ul>
-</li>
-<li><p><strong>Next state prediction</strong>:</p>
-<ul>
-<li><strong>Prediction</strong> algorithms including:<ul>
-<li>Predictive step in Kalman filtering</li>
-<li>Forward models in dynamic Bayesian networks</li>
-<li>State transition models in hidden Markov models</li>
-<li>Forecast models in time series analysis</li>
-</ul>
-</li>
-<li>These compute $P(x_{t+1} | y_{1:t})$ - predicting the next state given observations up to now</li>
-</ul>
-</li>
-<li><p><strong>Most likely sequence of states from observation sequence</strong>:</p>
-<ul>
-<li><strong>Smoothing</strong> and <strong>decoding</strong> algorithms such as:<ul>
-<li>Viterbi algorithm (for finding the most probable state sequence)</li>
-<li>Forward-backward algorithm (for computing marginal distributions)</li>
-<li>Rauch-Tung-Striebel smoother (for linear Gaussian systems)</li>
-</ul>
-</li>
-<li>These compute 
-   $$arg max_{x_{1:T}} P(x_{1:T} | y_{1:T})$$
-i.e. the most likely complete state trajectory given all observations</li>
-</ul>
-</li>
-</ol>
-<p>All of these tasks can be formulated within the framework of dynamic Bayesian networks, which are temporal extensions of probabilistic graphical models that explicitly represent the evolution of random variables over time.</p>
-</div>
-</div>
-</div>
-</div>
-<div class="jp-Cell jp-MarkdownCell jp-Notebook-cell">
-<div class="jp-Cell-inputWrapper" tabindex="0">
-<div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
-</div>
-<div class="jp-InputArea jp-Cell-inputArea"><div class="jp-InputPrompt jp-InputArea-prompt">
-</div><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput" data-mime-type="text/markdown">
-<h3 id="Prinicples-of-the-Kalman-Filter">Prinicples of the Kalman Filter<a class="anchor-link" href="#Prinicples-of-the-Kalman-Filter">¶</a></h3><p>The Kalman filter manages to incorporate all past measurements implicitly through recursion.</p>
-<ol>
-<li><p><strong>State representation</strong>: The Kalman filter maintains a sufficient statistic of all past information in the form of:</p>
-<ul>
-<li>A state estimate (mean vector)</li>
-<li>A covariance matrix (representing uncertainty)</li>
-</ul>
-</li>
-<li><p><strong>Recursive nature</strong>: The current state estimate already contains information from all previous measurements because:</p>
-<ul>
-<li>At each step t, the state estimate x̂(t|t) is based on x̂(t-1|t-1) and y(t)</li>
-<li>But x̂(t-1|t-1) was itself based on x̂(t-2|t-2) and y(t-1)</li>
-<li>And so on, all the way back to the initial state</li>
-</ul>
-</li>
-<li><p><strong>Markov property</strong>: The Kalman filter exploits the Markov property of the system - the current state contains all the information needed to predict future states, so we don't need to store the entire history.</p>
-</li>
-<li><p><strong>Optimal property</strong>: For linear Gaussian systems, this recursive estimation is provably optimal - the state estimate and covariance at time t are sufficient statistics for all measurements up to time t.</p>
-</li>
-</ol>
-<p>So while the Kalman filter equations only explicitly reference the previous state estimate and current observation:</p>
-<pre><code>Predict:
-x̂(t|t-1) = F·x̂(t-1|t-1)
-P(t|t-1) = F·P(t-1|t-1)·F' + Q
+<div class="jp-InputArea jp-Cell-inputArea">
+<div class="jp-InputPrompt jp-InputArea-prompt">In [ ]:</div>
+<div class="jp-CodeMirrorEditor jp-Editor jp-InputArea-editor" data-type="inline">
+<div class="cm-editor cm-s-jupyter">
+<div class="highlight hl-ipython3"><pre><span></span><span class="n">mr</span><span class="o">.</span><span class="n">Markdown</span><span class="p">(</span><span class="sa">f</span><span class="s2">"""## Hello </span><span class="si">{</span><span class="n">name</span><span class="o">.</span><span class="n">value</span><span class="si">}</span><span class="s2">!</span>
+<span class="s2"> </span>
+<span class="si">{</span><span class="n">name</span><span class="o">.</span><span class="n">value</span><span class="si">}</span><span class="s2">, this slide is recomputed after name change in the left side bar.</span>
+<span class="s2"> </span>
+<span class="s2">Please change the name value in the left side bar and press **Enter**.</span>
+<span class="s2"> </span>
+<span class="s2">Please check next slide ➡️</span>
+<span class="s2"> </span>
+<span class="s2">"""</span><span class="p">)</span>
 
-Update:
-K(t) = P(t|t-1)·H'·[H·P(t|t-1)·H' + R]^(-1)
-x̂(t|t) = x̂(t|t-1) + K(t)·[y(t) - H·x̂(t|t-1)]
-P(t|t) = [I - K(t)·H]·P(t|t-1)
-</code></pre>
-<p>It's actually integrating information from all past measurements through this recursive structure. This is one of the elegant properties of the Kalman filter - it provides a compact, computationally efficient way to incorporate the entire measurement history without having to store or reprocess that history.</p>
+<span class="n">samples</span> <span class="o">=</span> <span class="n">mr</span><span class="o">.</span><span class="n">Slider</span><span class="p">(</span><span class="n">label</span><span class="o">=</span><span class="s2">"How many samples"</span><span class="p">,</span> <span class="n">value</span><span class="o">=</span><span class="mi">75</span><span class="p">,</span> <span class="nb">min</span><span class="o">=</span><span class="mi">50</span><span class="p">,</span> <span class="nb">max</span><span class="o">=</span><span class="mi">100</span><span class="p">)</span>
+<span class="n">color</span> <span class="o">=</span> <span class="n">mr</span><span class="o">.</span><span class="n">Select</span><span class="p">(</span><span class="n">label</span><span class="o">=</span><span class="s2">"Mark color"</span><span class="p">,</span> <span class="n">value</span><span class="o">=</span><span class="s2">"blue"</span><span class="p">,</span> <span class="n">choices</span><span class="o">=</span><span class="p">[</span><span class="s2">"blue"</span><span class="p">,</span> <span class="s2">"green"</span><span class="p">,</span> <span class="s2">"red"</span><span class="p">])</span>
+</pre></div>
 </div>
 </div>
 </div>
 </div>
-<div class="jp-Cell jp-MarkdownCell jp-Notebook-cell">
+</div></section></section><section><section><div class="jp-Cell jp-CodeCell jp-Notebook-cell">
 <div class="jp-Cell-inputWrapper" tabindex="0">
 <div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
 </div>
-<div class="jp-InputArea jp-Cell-inputArea"><div class="jp-InputPrompt jp-InputArea-prompt">
-</div><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput" data-mime-type="text/markdown">
+<div class="jp-InputArea jp-Cell-inputArea">
+<div class="jp-InputPrompt jp-InputArea-prompt">In [9]:</div>
+<div class="jp-CodeMirrorEditor jp-Editor jp-InputArea-editor" data-type="inline">
+<div class="cm-editor cm-s-jupyter">
+<div class="highlight hl-ipython3"><pre><span></span><span class="n">plt</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">rand</span><span class="p">(</span><span class="n">samples</span><span class="o">.</span><span class="n">value</span><span class="p">),</span> <span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">rand</span><span class="p">(</span><span class="n">samples</span><span class="o">.</span><span class="n">value</span><span class="p">),</span> <span class="s2">"*"</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="n">color</span><span class="o">.</span><span class="n">value</span><span class="p">)</span>
+</pre></div>
 </div>
 </div>
 </div>
 </div>
-<div class="jp-Cell jp-MarkdownCell jp-Notebook-cell">
-<div class="jp-Cell-inputWrapper" tabindex="0">
-<div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
+<div class="jp-Cell-outputWrapper">
+<div class="jp-Collapser jp-OutputCollapser jp-Cell-outputCollapser">
 </div>
-<div class="jp-InputArea jp-Cell-inputArea"><div class="jp-InputPrompt jp-InputArea-prompt">
-</div><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput" data-mime-type="text/markdown">
+<div class="jp-OutputArea jp-Cell-outputArea">
+<div class="jp-OutputArea-child">
+<div class="jp-OutputPrompt jp-OutputArea-prompt"></div>
+<div class="jp-RenderedText jp-OutputArea-output" data-mime-type="application/vnd.jupyter.stderr" tabindex="0">
+<pre>
+<span class="ansi-red-fg">---------------------------------------------------------------------------</span>
+<span class="ansi-red-fg">NameError</span>                                 Traceback (most recent call last)
+Cell <span class="ansi-green-fg">In[9], line 1</span>
+<span class="ansi-green-fg">----&gt; 1</span> <span class="ansi-yellow-bg">plt</span><span style="color: rgb(98,98,98)">.</span>plot(np<span style="color: rgb(98,98,98)">.</span>random<span style="color: rgb(98,98,98)">.</span>rand(samples<span style="color: rgb(98,98,98)">.</span>value), np<span style="color: rgb(98,98,98)">.</span>random<span style="color: rgb(98,98,98)">.</span>rand(samples<span style="color: rgb(98,98,98)">.</span>value), <span style="color: rgb(175,0,0)">"</span><span style="color: rgb(175,0,0)">*</span><span style="color: rgb(175,0,0)">"</span>, color<span style="color: rgb(98,98,98)">=</span>color<span style="color: rgb(98,98,98)">.</span>value)
+
+<span class="ansi-red-fg">NameError</span>: name 'plt' is not defined</pre>
+</div>
 </div>
 </div>
 </div>

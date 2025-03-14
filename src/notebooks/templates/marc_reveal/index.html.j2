@@ -1,0 +1,43 @@
+{%- extends 'reveal/index.html.j2' -%}
+
+{%- block body_header -%}
+
+
+{{ super() }}
+
+<style type="text/css">
+    .reveal h1, .reveal h2, .reveal h3 {
+      /* Custom heading styles */
+      color:rgb(134, 38, 124);
+    }
+    .footer {
+      position: fixed;
+      bottom: 0;
+      left: 0;
+      //width: 100%;
+      height: 40px;
+      background-color: #f1f1f1;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      z-index: 0;
+    }
+
+    .footer img {
+      max-height: 40px;
+      //width: 100%;
+      object-fit: contain;
+    }
+
+
+    /* Push content up to prevent overlap with footer */
+    .slides {
+      margin-bottom: 50px;
+    }
+    
+</style>
+
+<img src="https://upload.wikimedia.org/wikipedia/commons/thumb/7/72/Universit%C3%A4t_Bonn.svg/320px-Universit%C3%A4t_Bonn.svg.png" alt="Logo" class="footer">
+
+
+{%- endblock body_header -%} 
