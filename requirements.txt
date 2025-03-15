@@ -1,8 +1,4 @@
-mercury
 jupyterlab
 matplotlib
 numpy
-jupyterlab-rise
 pip
-voila
-voila-reveal
