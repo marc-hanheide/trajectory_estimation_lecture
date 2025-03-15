@@ -1,0 +1,116 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 800 500">
+  <!-- Background with field texture -->
+  <rect width="800" height="500" fill="#e8dfbc" />
+  
+  <!-- Field rows pattern -->
+  <g stroke="#c9bb8a" stroke-width="2">
+    <path d="M0 50 L800 50" />
+    <path d="M0 90 L800 90" />
+    <path d="M0 130 L800 130" />
+    <path d="M0 170 L800 170" />
+    <path d="M0 210 L800 210" />
+    <path d="M0 250 L800 250" />
+    <path d="M0 290 L800 290" />
+    <path d="M0 330 L800 330" />
+    <path d="M0 370 L800 370" />
+    <path d="M0 410 L800 410" />
+    <path d="M0 450 L800 450" />
+    <path d="M0 490 L800 490" />
+  </g>
+  
+  <!-- Ideal trajectory -->
+  <path d="M50 250 L750 250" stroke="#08519c" stroke-width="4" stroke-dasharray="10,5" fill="none" />
+  <text x="400" y="235" text-anchor="middle" font-family="Arial" font-size="16" fill="#08519c">Ideal trajectory</text>
+  
+  <!-- Actual trajectory with error -->
+  <path d="M50 250 C200 280, 300 230, 400 270 C500 290, 600 235, 750 250" stroke="#d73027" stroke-width="4" fill="none" />
+  <text x="400" y="305" text-anchor="middle" font-family="Arial" font-size="16" fill="#d73027">Actual trajectory with error</text>
+  
+  <!-- Error indicators -->
+  <g stroke="#333" stroke-width="1" stroke-dasharray="3,3">
+    <line x1="200" y1="250" x2="200" y2="280" />
+    <line x1="400" y1="250" x2="400" y2="270" />
+    <line x1="600" y1="250" x2="600" y2="235" />
+  </g>
+  <g fill="#333" font-family="Arial" font-size="14">
+    <text x="215" y="265" text-anchor="middle">Error</text>
+    <text x="415" y="260" text-anchor="middle">Error</text>
+    <text x="615" y="245" text-anchor="middle">Error</text>
+  </g>
+  
+  <!-- Vehicle -->
+  <g transform="translate(400, 270)">
+    <!-- Vehicle body -->
+    <rect x="-35" y="-15" width="70" height="30" fill="#666" rx="5" />
+    <!-- Wheels -->
+    <rect x="-30" y="-20" width="15" height="10" fill="#333" rx="2" />
+    <rect x="15" y="-20" width="15" height="10" fill="#333" rx="2" />
+    <rect x="-30" y="15" width="15" height="10" fill="#333" rx="2" />
+    <rect x="15" y="15" width="15" height="10" fill="#333" rx="2" />
+    <!-- Sensors -->
+    <circle cx="0" cy="-20" r="8" fill="#3182bd" />
+    <rect x="-5" y="-5" width="10" height="10" fill="#31a354" />
+  </g>
+  
+  <!-- Context elements -->
+  <!-- Crop plants -->
+  <g fill="#31a354">
+    <g transform="translate(150, 90)">
+      <circle r="10" />
+      <line x1="-8" y1="0" x2="8" y2="0" stroke="#fff" stroke-width="2" />
+      <line x1="0" y1="-8" x2="0" y2="8" stroke="#fff" stroke-width="2" />
+    </g>
+    <g transform="translate(250, 90)">
+      <circle r="10" />
+      <line x1="-8" y1="0" x2="8" y2="0" stroke="#fff" stroke-width="2" />
+      <line x1="0" y1="-8" x2="0" y2="8" stroke="#fff" stroke-width="2" />
+    </g>
+    <g transform="translate(350, 90)">
+      <circle r="10" />
+      <line x1="-8" y1="0" x2="8" y2="0" stroke="#fff" stroke-width="2" />
+      <line x1="0" y1="-8" x2="0" y2="8" stroke="#fff" stroke-width="2" />
+    </g>
+    <g transform="translate(450, 90)">
+      <circle r="10" />
+      <line x1="-8" y1="0" x2="8" y2="0" stroke="#fff" stroke-width="2" />
+      <line x1="0" y1="-8" x2="0" y2="8" stroke="#fff" stroke-width="2" />
+    </g>
+    <g transform="translate(550, 90)">
+      <circle r="10" />
+      <line x1="-8" y1="0" x2="8" y2="0" stroke="#fff" stroke-width="2" />
+      <line x1="0" y1="-8" x2="0" y2="8" stroke="#fff" stroke-width="2" />
+    </g>
+    <g transform="translate(650, 90)">
+      <circle r="10" />
+      <line x1="-8" y1="0" x2="8" y2="0" stroke="#fff" stroke-width="2" />
+      <line x1="0" y1="-8" x2="0" y2="8" stroke="#fff" stroke-width="2" />
+    </g>
+  </g>
+  
+  <!-- Consequences of trajectory errors -->
+  <g font-family="Arial" font-size="14" fill="#d73027">
+    <text x="200" y="340" text-anchor="middle">Overlapping treatment</text>
+    <text x="400" y="390" text-anchor="middle">Missed/untreated areas</text>
+    <text x="600" y="340" text-anchor="middle">Crop damage</text>
+  </g>
+  
+  <!-- Dotted lines connecting to consequences -->
+  <g stroke="#d73027" stroke-width="1" stroke-dasharray="5,3">
+    <path d="M200 280 L200 325" />
+    <path d="M400 270 L400 375" />
+    <path d="M600 235 L600 325" />
+  </g>
+  
+  <!-- Title -->
+  <text x="400" y="40" text-anchor="middle" font-family="Arial" font-size="24" font-weight="bold">The Need for High Precision Trajectory Estimation</text>
+  <text x="400" y="65" text-anchor="middle" font-family="Arial" font-size="18">Ensuring accuracy in agricultural operations</text>
+  
+  <!-- Legend -->
+  <g transform="translate(650, 430)">
+    <rect x="0" y="0" width="130" height="60" fill="white" fill-opacity="0.8" rx="5" />
+    <line x1="10" y1="15" x2="40" y2="15" stroke="#08519c" stroke-width="4" stroke-dasharray="10,5" />
+    <text x="45" y="20" font-family="Arial" font-size="14">Ideal path</text>
+    <line x1="10" y1="40" x2="40" y2="40" stroke="#d73027" stroke-width="4" />
+    <text x="45" y="45" font-family="Arial" font-size="14">Actual path</text>
+  </g>
+</svg>
