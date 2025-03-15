@@ -6,10 +6,33 @@
 {{ super() }}
 
 <style type="text/css">
+    .reveal p {
+      //line-height: 1.2;
+      margin-top: 0px;
+      margin-bottom: 6px;
+    }
+
+    .reveal ul, .reveal ol {
+      margin-top: 0px;
+      margin-bottom: 0px;
+      margin-left: 0px;
+    }
+
+    .reveal ul ul, .reveal ul ol, .reveal ol ol, .reveal ol ul {
+        margin-left: 0px;
+    }
+
+    .reveal .slides>section,.reveal .slides>section>section {
+        padding: 0 0 0 0;
+    }
+
     .reveal h1, .reveal h2, .reveal h3 {
       /* Custom heading styles */
       color:rgb(134, 38, 124);
+      margin-bottom: 0px;
+      margin-top: 3px;
     }
+
     .footer {
       position: fixed;
       bottom: 0;

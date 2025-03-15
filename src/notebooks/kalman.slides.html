@@ -7436,10 +7436,33 @@ main {
 <div class="reveal">
 <div class="slides">
 <style type="text/css">
+    .reveal p {
+      //line-height: 1.2;
+      margin-top: 0px;
+      margin-bottom: 6px;
+    }
+
+    .reveal ul, .reveal ol {
+      margin-top: 0px;
+      margin-bottom: 0px;
+      margin-left: 0px;
+    }
+
+    .reveal ul ul, .reveal ul ol, .reveal ol ol, .reveal ol ul {
+        margin-left: 0px;
+    }
+
+    .reveal .slides>section,.reveal .slides>section>section {
+        padding: 0 0 0 0;
+    }
+
     .reveal h1, .reveal h2, .reveal h3 {
       /* Custom heading styles */
       color:rgb(134, 38, 124);
+      margin-bottom: 0px;
+      margin-top: 3px;
     }
+
     .footer {
       position: fixed;
       bottom: 0;
@@ -7541,7 +7564,101 @@ main {
 </div>
 </div>
 </div>
-</div><div class="fragment"><div class="jp-Cell jp-CodeCell jp-Notebook-cell jp-mod-noOutputs jp-mod-noInput">
+</div><div class="fragment"><div class="jp-Cell jp-CodeCell jp-Notebook-cell jp-mod-noOutputs">
+<div class="jp-Cell-inputWrapper" tabindex="0">
+<div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
+</div>
+<div class="jp-InputArea jp-Cell-inputArea">
+<div class="jp-InputPrompt jp-InputArea-prompt">In [39]:</div>
+<div class="jp-CodeMirrorEditor jp-Editor jp-InputArea-editor" data-type="inline">
+<div class="cm-editor cm-s-jupyter">
+<div class="highlight hl-ipython3"><pre><span></span><span class="k">class</span><span class="w"> </span><span class="nc">DifferentialDriveRobot</span><span class="p">:</span>
+<span class="w">    </span><span class="sd">"""</span>
+<span class="sd">    A differential drive robot model with simulated IMU and GPS sensors.</span>
+<span class="sd">    """</span>
+    <span class="k">def</span><span class="w"> </span><span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">x</span><span class="o">=</span><span class="mf">0.0</span><span class="p">,</span> <span class="n">y</span><span class="o">=</span><span class="mf">0.0</span><span class="p">,</span> <span class="n">theta</span><span class="o">=</span><span class="mf">0.0</span><span class="p">,</span> <span class="n">wheel_radius</span><span class="o">=</span><span class="mf">0.1</span><span class="p">,</span> <span class="n">wheel_base</span><span class="o">=</span><span class="mf">0.5</span><span class="p">):</span>
+        <span class="c1"># Robot state</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">x</span> <span class="o">=</span> <span class="n">x</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">y</span> <span class="o">=</span> <span class="n">y</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">theta</span> <span class="o">=</span> <span class="n">theta</span>  <span class="c1"># Heading in radians</span>
+        
+        <span class="c1"># Robot parameters</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">wheel_radius</span> <span class="o">=</span> <span class="n">wheel_radius</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">wheel_base</span> <span class="o">=</span> <span class="n">wheel_base</span>
+        
+        <span class="c1"># Sensor noise parameters (standard deviations)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">imu_noise_angular_velocity</span> <span class="o">=</span> <span class="mf">0.01</span>  <span class="c1"># rad/s</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">imu_noise_linear_accel</span> <span class="o">=</span> <span class="mf">0.05</span>      <span class="c1"># m/s²</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">gps_noise_position</span> <span class="o">=</span> <span class="mf">2.0</span>           <span class="c1"># meters</span>
+        
+        <span class="c1"># Internal state for simulation</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">v_left</span> <span class="o">=</span> <span class="mf">0.0</span>   <span class="c1"># Left wheel velocity</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">v_right</span> <span class="o">=</span> <span class="mf">0.0</span>  <span class="c1"># Right wheel velocity</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">last_time</span> <span class="o">=</span> <span class="n">time</span><span class="o">.</span><span class="n">time</span><span class="p">()</span>
+
+    
+    <span class="k">def</span><span class="w"> </span><span class="nf">update_wheels_velocity</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">v_left</span><span class="p">,</span> <span class="n">v_right</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">"""Set the wheel velocities in rad/sec."""</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">v_left</span> <span class="o">=</span> <span class="n">v_left</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">v_right</span> <span class="o">=</span> <span class="n">v_right</span>
+    
+    <span class="k">def</span><span class="w"> </span><span class="nf">update</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">"""Update the robot's position based on wheel velocities."""</span>
+        <span class="n">current_time</span> <span class="o">=</span> <span class="n">time</span><span class="o">.</span><span class="n">time</span><span class="p">()</span>
+        <span class="n">dt</span> <span class="o">=</span> <span class="n">current_time</span> <span class="o">-</span> <span class="bp">self</span><span class="o">.</span><span class="n">last_time</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">last_time</span> <span class="o">=</span> <span class="n">current_time</span>
+        
+        <span class="c1"># Calculate linear and angular velocity</span>
+        <span class="n">v_linear</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">wheel_radius</span> <span class="o">*</span> <span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">v_right</span> <span class="o">+</span> <span class="bp">self</span><span class="o">.</span><span class="n">v_left</span><span class="p">)</span> <span class="o">/</span> <span class="mf">2.0</span>
+        <span class="n">v_angular</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">wheel_radius</span> <span class="o">*</span> <span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">v_right</span> <span class="o">-</span> <span class="bp">self</span><span class="o">.</span><span class="n">v_left</span><span class="p">)</span> <span class="o">/</span> <span class="bp">self</span><span class="o">.</span><span class="n">wheel_base</span>
+        
+        <span class="c1"># Update state</span>
+        <span class="k">if</span> <span class="nb">abs</span><span class="p">(</span><span class="n">v_angular</span><span class="p">)</span> <span class="o">&lt;</span> <span class="mf">1e-6</span><span class="p">:</span>  <span class="c1"># Straight line motion</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">x</span> <span class="o">+=</span> <span class="n">v_linear</span> <span class="o">*</span> <span class="n">cos</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">theta</span><span class="p">)</span> <span class="o">*</span> <span class="n">dt</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">y</span> <span class="o">+=</span> <span class="n">v_linear</span> <span class="o">*</span> <span class="n">sin</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">theta</span><span class="p">)</span> <span class="o">*</span> <span class="n">dt</span>
+        <span class="k">else</span><span class="p">:</span>  <span class="c1"># Curved motion</span>
+            <span class="n">radius</span> <span class="o">=</span> <span class="n">v_linear</span> <span class="o">/</span> <span class="n">v_angular</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">x</span> <span class="o">+=</span> <span class="n">radius</span> <span class="o">*</span> <span class="p">(</span><span class="n">sin</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">theta</span> <span class="o">+</span> <span class="n">v_angular</span> <span class="o">*</span> <span class="n">dt</span><span class="p">)</span> <span class="o">-</span> <span class="n">sin</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">theta</span><span class="p">))</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">y</span> <span class="o">+=</span> <span class="n">radius</span> <span class="o">*</span> <span class="p">(</span><span class="n">cos</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">theta</span><span class="p">)</span> <span class="o">-</span> <span class="n">cos</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">theta</span> <span class="o">+</span> <span class="n">v_angular</span> <span class="o">*</span> <span class="n">dt</span><span class="p">))</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">theta</span> <span class="o">+=</span> <span class="n">v_angular</span> <span class="o">*</span> <span class="n">dt</span>
+            
+            <span class="c1"># Normalize theta to [-pi, pi]</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">theta</span> <span class="o">=</span> <span class="n">atan2</span><span class="p">(</span><span class="n">sin</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">theta</span><span class="p">),</span> <span class="n">cos</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">theta</span><span class="p">))</span>
+    
+    <span class="k">def</span><span class="w"> </span><span class="nf">get_imu_reading</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">"""</span>
+<span class="sd">        Get simulated IMU readings (angular velocity and linear acceleration).</span>
+<span class="sd">        Returns: (angular_velocity, linear_acceleration)</span>
+<span class="sd">        """</span>
+        <span class="c1"># Calculate actual values</span>
+        <span class="n">v_linear</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">wheel_radius</span> <span class="o">*</span> <span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">v_right</span> <span class="o">+</span> <span class="bp">self</span><span class="o">.</span><span class="n">v_left</span><span class="p">)</span> <span class="o">/</span> <span class="mf">2.0</span>
+        <span class="n">v_angular</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">wheel_radius</span> <span class="o">*</span> <span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">v_right</span> <span class="o">-</span> <span class="bp">self</span><span class="o">.</span><span class="n">v_left</span><span class="p">)</span> <span class="o">/</span> <span class="bp">self</span><span class="o">.</span><span class="n">wheel_base</span>
+        
+        <span class="c1"># Add noise</span>
+        <span class="n">angular_velocity</span> <span class="o">=</span> <span class="n">v_angular</span> <span class="o">+</span> <span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">normal</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">imu_noise_angular_velocity</span><span class="p">)</span>
+        <span class="n">linear_accel</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">normal</span><span class="p">(</span><span class="mf">0.0</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">imu_noise_linear_accel</span><span class="p">)</span>  <span class="c1"># Simplified, just noise</span>
+        
+        <span class="k">return</span> <span class="n">angular_velocity</span><span class="p">,</span> <span class="n">linear_accel</span>
+    
+    <span class="k">def</span><span class="w"> </span><span class="nf">get_gps_reading</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">"""</span>
+<span class="sd">        Get simulated GPS readings.</span>
+<span class="sd">        Returns: (x, y) with added noise</span>
+<span class="sd">        """</span>
+        <span class="n">gps_x</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">x</span> <span class="o">+</span> <span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">normal</span><span class="p">(</span><span class="mf">0.0</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">gps_noise_position</span><span class="p">)</span>
+        <span class="nb">print</span><span class="p">(</span><span class="n">gps_x</span><span class="p">)</span>
+        <span class="n">gps_y</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">y</span> <span class="o">+</span> <span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">normal</span><span class="p">(</span><span class="mf">0.0</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">gps_noise_position</span><span class="p">)</span>
+        
+        <span class="k">return</span> <span class="n">gps_x</span><span class="p">,</span> <span class="n">gps_y</span>
+    
+    <span class="k">def</span><span class="w"> </span><span class="nf">get_true_state</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">"""Get the ground truth state."""</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">x</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">y</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">theta</span>
+</pre></div>
+</div>
+</div>
+</div>
+</div>
 </div></div></section></section><section><section>
 <div class="jp-Cell jp-MarkdownCell jp-Notebook-cell">
 <div class="jp-Cell-inputWrapper" tabindex="0">
@@ -7575,7 +7692,141 @@ main {
 </div>
 </div>
 </div>
-</div><div class="fragment"><div class="jp-Cell jp-CodeCell jp-Notebook-cell jp-mod-noOutputs jp-mod-noInput">
+</div><div class="fragment"><div class="jp-Cell jp-CodeCell jp-Notebook-cell jp-mod-noOutputs">
+<div class="jp-Cell-inputWrapper" tabindex="0">
+<div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
+</div>
+<div class="jp-InputArea jp-Cell-inputArea">
+<div class="jp-InputPrompt jp-InputArea-prompt">In [40]:</div>
+<div class="jp-CodeMirrorEditor jp-Editor jp-InputArea-editor" data-type="inline">
+<div class="cm-editor cm-s-jupyter">
+<div class="highlight hl-ipython3"><pre><span></span><span class="k">class</span><span class="w"> </span><span class="nc">KalmanFilter</span><span class="p">:</span>
+<span class="w">    </span><span class="sd">"""</span>
+<span class="sd">    Kalman Filter implementation for differential drive robot localization.</span>
+<span class="sd">    State vector: [x, y, theta, v, omega]</span>
+<span class="sd">    Where:</span>
+<span class="sd">        x, y: position</span>
+<span class="sd">        theta: heading</span>
+<span class="sd">        v: linear velocity</span>
+<span class="sd">        omega: angular velocity</span>
+<span class="sd">    """</span>
+    <span class="k">def</span><span class="w"> </span><span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="c1"># State vector [x, y, theta, v, omega]</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">x</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">zeros</span><span class="p">((</span><span class="mi">5</span><span class="p">,</span> <span class="mi">1</span><span class="p">))</span>
+        
+        <span class="c1"># State covariance matrix</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">P</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">eye</span><span class="p">(</span><span class="mi">5</span><span class="p">)</span> <span class="o">*</span> <span class="mf">1.0</span>
+        
+        <span class="c1"># Process noise covariance</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">Q</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">diag</span><span class="p">([</span><span class="mf">0.01</span><span class="p">,</span> <span class="mf">0.01</span><span class="p">,</span> <span class="mf">0.01</span><span class="p">,</span> <span class="mf">0.1</span><span class="p">,</span> <span class="mf">0.1</span><span class="p">])</span>
+        
+        <span class="c1"># Measurement noise covariance for GPS [x, y]</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">R_gps</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">diag</span><span class="p">([</span><span class="mf">1.0</span><span class="p">,</span> <span class="mf">1.0</span><span class="p">])</span>
+        
+        <span class="c1"># Measurement noise covariance for IMU [omega]</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">R_imu</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">diag</span><span class="p">([</span><span class="mf">0.01</span><span class="p">])</span>
+        
+        <span class="c1"># Last update time</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">last_time</span> <span class="o">=</span> <span class="n">time</span><span class="o">.</span><span class="n">time</span><span class="p">()</span>
+        
+    <span class="k">def</span><span class="w"> </span><span class="nf">predict</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">dt</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">"""</span>
+<span class="sd">        Prediction step of the Kalman filter.</span>
+<span class="sd">        Args:</span>
+<span class="sd">            dt: Time step in seconds</span>
+<span class="sd">        """</span>
+        <span class="c1"># State transition matrix (linearized)</span>
+        <span class="n">F</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">eye</span><span class="p">(</span><span class="mi">5</span><span class="p">)</span>
+        <span class="n">F</span><span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="mi">2</span><span class="p">]</span> <span class="o">=</span> <span class="o">-</span><span class="bp">self</span><span class="o">.</span><span class="n">x</span><span class="p">[</span><span class="mi">3</span><span class="p">,</span> <span class="mi">0</span><span class="p">]</span> <span class="o">*</span> <span class="n">sin</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">x</span><span class="p">[</span><span class="mi">2</span><span class="p">,</span> <span class="mi">0</span><span class="p">])</span> <span class="o">*</span> <span class="n">dt</span>
+        <span class="n">F</span><span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="mi">3</span><span class="p">]</span> <span class="o">=</span> <span class="n">cos</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">x</span><span class="p">[</span><span class="mi">2</span><span class="p">,</span> <span class="mi">0</span><span class="p">])</span> <span class="o">*</span> <span class="n">dt</span>
+        <span class="n">F</span><span class="p">[</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">]</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">x</span><span class="p">[</span><span class="mi">3</span><span class="p">,</span> <span class="mi">0</span><span class="p">]</span> <span class="o">*</span> <span class="n">cos</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">x</span><span class="p">[</span><span class="mi">2</span><span class="p">,</span> <span class="mi">0</span><span class="p">])</span> <span class="o">*</span> <span class="n">dt</span>
+        <span class="n">F</span><span class="p">[</span><span class="mi">1</span><span class="p">,</span> <span class="mi">3</span><span class="p">]</span> <span class="o">=</span> <span class="n">sin</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">x</span><span class="p">[</span><span class="mi">2</span><span class="p">,</span> <span class="mi">0</span><span class="p">])</span> <span class="o">*</span> <span class="n">dt</span>
+        <span class="n">F</span><span class="p">[</span><span class="mi">2</span><span class="p">,</span> <span class="mi">4</span><span class="p">]</span> <span class="o">=</span> <span class="n">dt</span>
+        
+        <span class="c1"># Predict state</span>
+        <span class="n">v</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">x</span><span class="p">[</span><span class="mi">3</span><span class="p">,</span> <span class="mi">0</span><span class="p">]</span>
+        <span class="n">theta</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">x</span><span class="p">[</span><span class="mi">2</span><span class="p">,</span> <span class="mi">0</span><span class="p">]</span>
+        <span class="n">omega</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">x</span><span class="p">[</span><span class="mi">4</span><span class="p">,</span> <span class="mi">0</span><span class="p">]</span>
+        
+        <span class="c1"># Predict state using nonlinear model</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">x</span><span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">]</span> <span class="o">+=</span> <span class="n">v</span> <span class="o">*</span> <span class="n">cos</span><span class="p">(</span><span class="n">theta</span><span class="p">)</span> <span class="o">*</span> <span class="n">dt</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">x</span><span class="p">[</span><span class="mi">1</span><span class="p">,</span> <span class="mi">0</span><span class="p">]</span> <span class="o">+=</span> <span class="n">v</span> <span class="o">*</span> <span class="n">sin</span><span class="p">(</span><span class="n">theta</span><span class="p">)</span> <span class="o">*</span> <span class="n">dt</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">x</span><span class="p">[</span><span class="mi">2</span><span class="p">,</span> <span class="mi">0</span><span class="p">]</span> <span class="o">+=</span> <span class="n">omega</span> <span class="o">*</span> <span class="n">dt</span>
+        
+        <span class="c1"># Normalize theta to [-pi, pi]</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">x</span><span class="p">[</span><span class="mi">2</span><span class="p">,</span> <span class="mi">0</span><span class="p">]</span> <span class="o">=</span> <span class="n">atan2</span><span class="p">(</span><span class="n">sin</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">x</span><span class="p">[</span><span class="mi">2</span><span class="p">,</span> <span class="mi">0</span><span class="p">]),</span> <span class="n">cos</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">x</span><span class="p">[</span><span class="mi">2</span><span class="p">,</span> <span class="mi">0</span><span class="p">]))</span>
+        
+        <span class="c1"># Predict covariance</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">P</span> <span class="o">=</span> <span class="n">F</span> <span class="o">@</span> <span class="bp">self</span><span class="o">.</span><span class="n">P</span> <span class="o">@</span> <span class="n">F</span><span class="o">.</span><span class="n">T</span> <span class="o">+</span> <span class="bp">self</span><span class="o">.</span><span class="n">Q</span>
+        
+    <span class="k">def</span><span class="w"> </span><span class="nf">update_with_gps</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">gps_x</span><span class="p">,</span> <span class="n">gps_y</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">"""</span>
+<span class="sd">        Update step with GPS measurement.</span>
+<span class="sd">        Args:</span>
+<span class="sd">            gps_x: GPS x position</span>
+<span class="sd">            gps_y: GPS y position</span>
+<span class="sd">        """</span>
+        <span class="c1"># Measurement matrix for GPS</span>
+        <span class="n">H</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">zeros</span><span class="p">((</span><span class="mi">2</span><span class="p">,</span> <span class="mi">5</span><span class="p">))</span>
+        <span class="n">H</span><span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">]</span> <span class="o">=</span> <span class="mf">1.0</span>  <span class="c1"># x position</span>
+        <span class="n">H</span><span class="p">[</span><span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">]</span> <span class="o">=</span> <span class="mf">1.0</span>  <span class="c1"># y position</span>
+        
+        <span class="c1"># Measurement</span>
+        <span class="n">z</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([[</span><span class="n">gps_x</span><span class="p">],</span> <span class="p">[</span><span class="n">gps_y</span><span class="p">]])</span>
+        
+        <span class="c1"># Expected measurement</span>
+        <span class="n">z_pred</span> <span class="o">=</span> <span class="n">H</span> <span class="o">@</span> <span class="bp">self</span><span class="o">.</span><span class="n">x</span>
+        
+        <span class="c1"># Innovation (measurement residual)</span>
+        <span class="n">y</span> <span class="o">=</span> <span class="n">z</span> <span class="o">-</span> <span class="n">z_pred</span>
+        
+        <span class="c1"># Innovation covariance</span>
+        <span class="n">S</span> <span class="o">=</span> <span class="n">H</span> <span class="o">@</span> <span class="bp">self</span><span class="o">.</span><span class="n">P</span> <span class="o">@</span> <span class="n">H</span><span class="o">.</span><span class="n">T</span> <span class="o">+</span> <span class="bp">self</span><span class="o">.</span><span class="n">R_gps</span>
+        
+        <span class="c1"># Kalman gain</span>
+        <span class="n">K</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">P</span> <span class="o">@</span> <span class="n">H</span><span class="o">.</span><span class="n">T</span> <span class="o">@</span> <span class="n">np</span><span class="o">.</span><span class="n">linalg</span><span class="o">.</span><span class="n">inv</span><span class="p">(</span><span class="n">S</span><span class="p">)</span>
+        
+        <span class="c1"># Update state and covariance</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">x</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">x</span> <span class="o">+</span> <span class="n">K</span> <span class="o">@</span> <span class="n">y</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">P</span> <span class="o">=</span> <span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">eye</span><span class="p">(</span><span class="mi">5</span><span class="p">)</span> <span class="o">-</span> <span class="n">K</span> <span class="o">@</span> <span class="n">H</span><span class="p">)</span> <span class="o">@</span> <span class="bp">self</span><span class="o">.</span><span class="n">P</span>
+        
+    <span class="k">def</span><span class="w"> </span><span class="nf">update_with_imu</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">angular_velocity</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">"""</span>
+<span class="sd">        Update step with IMU measurement.</span>
+<span class="sd">        Args:</span>
+<span class="sd">            angular_velocity: Angular velocity from IMU</span>
+<span class="sd">        """</span>
+        <span class="c1"># Measurement matrix for IMU</span>
+        <span class="n">H</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">zeros</span><span class="p">((</span><span class="mi">1</span><span class="p">,</span> <span class="mi">5</span><span class="p">))</span>
+        <span class="n">H</span><span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="mi">4</span><span class="p">]</span> <span class="o">=</span> <span class="mf">1.0</span>  <span class="c1"># Angular velocity</span>
+        
+        <span class="c1"># Measurement</span>
+        <span class="n">z</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([[</span><span class="n">angular_velocity</span><span class="p">]])</span>
+        
+        <span class="c1"># Expected measurement</span>
+        <span class="n">z_pred</span> <span class="o">=</span> <span class="n">H</span> <span class="o">@</span> <span class="bp">self</span><span class="o">.</span><span class="n">x</span>
+        
+        <span class="c1"># Innovation (measurement residual)</span>
+        <span class="n">y</span> <span class="o">=</span> <span class="n">z</span> <span class="o">-</span> <span class="n">z_pred</span>
+        
+        <span class="c1"># Innovation covariance</span>
+        <span class="n">S</span> <span class="o">=</span> <span class="n">H</span> <span class="o">@</span> <span class="bp">self</span><span class="o">.</span><span class="n">P</span> <span class="o">@</span> <span class="n">H</span><span class="o">.</span><span class="n">T</span> <span class="o">+</span> <span class="bp">self</span><span class="o">.</span><span class="n">R_imu</span>
+        
+        <span class="c1"># Kalman gain</span>
+        <span class="n">K</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">P</span> <span class="o">@</span> <span class="n">H</span><span class="o">.</span><span class="n">T</span> <span class="o">@</span> <span class="n">np</span><span class="o">.</span><span class="n">linalg</span><span class="o">.</span><span class="n">inv</span><span class="p">(</span><span class="n">S</span><span class="p">)</span>
+        
+        <span class="c1"># Update state and covariance</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">x</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">x</span> <span class="o">+</span> <span class="n">K</span> <span class="o">@</span> <span class="n">y</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">P</span> <span class="o">=</span> <span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">eye</span><span class="p">(</span><span class="mi">5</span><span class="p">)</span> <span class="o">-</span> <span class="n">K</span> <span class="o">@</span> <span class="n">H</span><span class="p">)</span> <span class="o">@</span> <span class="bp">self</span><span class="o">.</span><span class="n">P</span>
+        
+    <span class="k">def</span><span class="w"> </span><span class="nf">get_state</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">"""Get the current estimated state."""</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">x</span><span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">],</span> <span class="bp">self</span><span class="o">.</span><span class="n">x</span><span class="p">[</span><span class="mi">1</span><span class="p">,</span> <span class="mi">0</span><span class="p">],</span> <span class="bp">self</span><span class="o">.</span><span class="n">x</span><span class="p">[</span><span class="mi">2</span><span class="p">,</span> <span class="mi">0</span><span class="p">],</span> <span class="bp">self</span><span class="o">.</span><span class="n">x</span><span class="p">[</span><span class="mi">3</span><span class="p">,</span> <span class="mi">0</span><span class="p">],</span> <span class="bp">self</span><span class="o">.</span><span class="n">x</span><span class="p">[</span><span class="mi">4</span><span class="p">,</span> <span class="mi">0</span><span class="p">]</span>
+</pre></div>
+</div>
+</div>
+</div>
+</div>
 </div>
 <div class="jp-Cell jp-MarkdownCell jp-Notebook-cell">
 <div class="jp-Cell-inputWrapper" tabindex="0">
@@ -7631,8 +7882,113 @@ main {
 </div>
 </div>
 </div>
-</div><div class="jp-Cell jp-CodeCell jp-Notebook-cell jp-mod-noOutputs jp-mod-noInput">
-</div><div class="jp-Cell jp-CodeCell jp-Notebook-cell jp-mod-noInput">
+</div><div class="jp-Cell jp-CodeCell jp-Notebook-cell jp-mod-noOutputs">
+<div class="jp-Cell-inputWrapper" tabindex="0">
+<div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
+</div>
+<div class="jp-InputArea jp-Cell-inputArea">
+<div class="jp-InputPrompt jp-InputArea-prompt">In [41]:</div>
+<div class="jp-CodeMirrorEditor jp-Editor jp-InputArea-editor" data-type="inline">
+<div class="cm-editor cm-s-jupyter">
+<div class="highlight hl-ipython3"><pre><span></span><span class="k">def</span><span class="w"> </span><span class="nf">simulate_robot_with_kalman_filter</span><span class="p">():</span>
+    <span class="c1"># Create a robot and Kalman filter</span>
+    <span class="n">robot</span> <span class="o">=</span> <span class="n">DifferentialDriveRobot</span><span class="p">()</span>
+    <span class="n">kf</span> <span class="o">=</span> <span class="n">KalmanFilter</span><span class="p">()</span>
+    
+    <span class="c1"># Simulation parameters</span>
+    <span class="n">simulation_time</span> <span class="o">=</span> <span class="mf">60.0</span>  <span class="c1"># seconds</span>
+    <span class="n">dt</span> <span class="o">=</span> <span class="mf">0.1</span>  <span class="c1"># time step</span>
+    
+    <span class="c1"># Storage for plotting</span>
+    <span class="n">true_positions</span> <span class="o">=</span> <span class="p">[]</span>
+    <span class="n">gps_positions</span> <span class="o">=</span> <span class="p">[]</span>
+    <span class="n">kf_positions</span> <span class="o">=</span> <span class="p">[]</span>
+    <span class="n">time_points</span> <span class="o">=</span> <span class="p">[]</span>
+    
+    <span class="c1"># Initial time</span>
+    <span class="n">current_time</span> <span class="o">=</span> <span class="mf">0.0</span>
+    <span class="n">last_update_time</span> <span class="o">=</span> <span class="mf">0.0</span>
+    
+    <span class="c1"># Main simulation loop</span>
+    <span class="k">while</span> <span class="n">current_time</span> <span class="o">&lt;</span> <span class="n">simulation_time</span><span class="p">:</span>
+        <span class="c1"># Set wheel velocities (changing over time for interesting trajectory)</span>
+        <span class="c1"># v_left = 1.0 + 0.5 * sin(current_time * 0.000001)</span>
+        <span class="c1"># v_right = 1.5 + 0.5 * cos(current_time * 0.000001)</span>
+        <span class="n">v_left</span> <span class="o">=</span> <span class="mf">1.0</span>
+        <span class="n">v_right</span> <span class="o">=</span> <span class="mf">1.0</span>
+        <span class="n">robot</span><span class="o">.</span><span class="n">update_wheels_velocity</span><span class="p">(</span><span class="n">v_left</span><span class="p">,</span> <span class="n">v_right</span><span class="p">)</span>
+        
+        <span class="c1"># Update the robot's true position</span>
+        <span class="n">robot</span><span class="o">.</span><span class="n">last_time</span> <span class="o">=</span> <span class="n">last_update_time</span>
+        <span class="n">robot</span><span class="o">.</span><span class="n">update</span><span class="p">()</span>
+        
+        <span class="c1"># Get sensor readings</span>
+        <span class="n">angular_velocity</span><span class="p">,</span> <span class="n">_</span> <span class="o">=</span> <span class="n">robot</span><span class="o">.</span><span class="n">get_imu_reading</span><span class="p">()</span>
+        <span class="n">gps_x</span><span class="p">,</span> <span class="n">gps_y</span> <span class="o">=</span> <span class="n">robot</span><span class="o">.</span><span class="n">get_gps_reading</span><span class="p">()</span>
+        
+        <span class="c1"># Update the Kalman filter</span>
+        <span class="n">kf</span><span class="o">.</span><span class="n">predict</span><span class="p">(</span><span class="n">dt</span><span class="p">)</span>
+        
+        <span class="c1"># We'll update with IMU at every step</span>
+        <span class="n">kf</span><span class="o">.</span><span class="n">update_with_imu</span><span class="p">(</span><span class="n">angular_velocity</span><span class="p">)</span>
+        
+        <span class="c1"># But update with GPS less frequently (e.g., every 0.5 seconds)</span>
+        <span class="k">if</span> <span class="n">current_time</span> <span class="o">%</span> <span class="mi">5</span> <span class="o">&lt;</span> <span class="n">dt</span><span class="p">:</span>
+            <span class="n">kf</span><span class="o">.</span><span class="n">update_with_gps</span><span class="p">(</span><span class="n">gps_x</span><span class="p">,</span> <span class="n">gps_y</span><span class="p">)</span>
+        
+        <span class="c1"># Store data for plotting</span>
+        <span class="n">true_x</span><span class="p">,</span> <span class="n">true_y</span><span class="p">,</span> <span class="n">true_theta</span> <span class="o">=</span> <span class="n">robot</span><span class="o">.</span><span class="n">get_true_state</span><span class="p">()</span>
+        <span class="n">kf_x</span><span class="p">,</span> <span class="n">kf_y</span><span class="p">,</span> <span class="n">kf_theta</span><span class="p">,</span> <span class="n">kf_v</span><span class="p">,</span> <span class="n">kf_omega</span> <span class="o">=</span> <span class="n">kf</span><span class="o">.</span><span class="n">get_state</span><span class="p">()</span>
+        
+        <span class="n">true_positions</span><span class="o">.</span><span class="n">append</span><span class="p">((</span><span class="n">true_x</span><span class="p">,</span> <span class="n">true_y</span><span class="p">))</span>
+        <span class="n">gps_positions</span><span class="o">.</span><span class="n">append</span><span class="p">((</span><span class="n">gps_x</span><span class="p">,</span> <span class="n">gps_y</span><span class="p">))</span>
+        <span class="n">kf_positions</span><span class="o">.</span><span class="n">append</span><span class="p">((</span><span class="n">kf_x</span><span class="p">,</span> <span class="n">kf_y</span><span class="p">))</span>
+        <span class="n">time_points</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">current_time</span><span class="p">)</span>
+        
+        <span class="c1"># Update time</span>
+        <span class="n">last_update_time</span> <span class="o">=</span> <span class="n">current_time</span>
+        <span class="n">current_time</span> <span class="o">+=</span> <span class="n">dt</span>
+    
+    <span class="c1"># Convert to numpy arrays for plotting</span>
+    <span class="n">true_positions</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">(</span><span class="n">true_positions</span><span class="p">)</span>
+    <span class="n">gps_positions</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">(</span><span class="n">gps_positions</span><span class="p">)</span>
+    <span class="n">kf_positions</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">(</span><span class="n">kf_positions</span><span class="p">)</span>
+    
+    <span class="c1"># Plot results</span>
+    <span class="n">plt</span><span class="o">.</span><span class="n">figure</span><span class="p">(</span><span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">10</span><span class="p">,</span> <span class="mi">6</span><span class="p">))</span>
+    
+    <span class="c1"># Plot trajectories</span>
+    <span class="n">plt</span><span class="o">.</span><span class="n">subplot</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">)</span>
+    <span class="n">plt</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">true_positions</span><span class="p">[:,</span> <span class="mi">0</span><span class="p">],</span> <span class="n">true_positions</span><span class="p">[:,</span> <span class="mi">1</span><span class="p">],</span> <span class="s1">'g-'</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="s1">'True Position'</span><span class="p">)</span>
+    <span class="n">plt</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">gps_positions</span><span class="p">[:,</span> <span class="mi">0</span><span class="p">],</span> <span class="n">gps_positions</span><span class="p">[:,</span> <span class="mi">1</span><span class="p">],</span> <span class="s1">'r.'</span><span class="p">,</span> <span class="n">markersize</span><span class="o">=</span><span class="mi">3</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="s1">'GPS Measurements'</span><span class="p">)</span>
+    <span class="n">plt</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">kf_positions</span><span class="p">[:,</span> <span class="mi">0</span><span class="p">],</span> <span class="n">kf_positions</span><span class="p">[:,</span> <span class="mi">1</span><span class="p">],</span> <span class="s1">'b-'</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="s1">'Kalman Filter Estimate'</span><span class="p">)</span>
+    <span class="n">plt</span><span class="o">.</span><span class="n">xlabel</span><span class="p">(</span><span class="s1">'X Position (m)'</span><span class="p">)</span>
+    <span class="n">plt</span><span class="o">.</span><span class="n">ylabel</span><span class="p">(</span><span class="s1">'Y Position (m)'</span><span class="p">)</span>
+    <span class="n">plt</span><span class="o">.</span><span class="n">legend</span><span class="p">()</span>
+    <span class="n">plt</span><span class="o">.</span><span class="n">title</span><span class="p">(</span><span class="s1">'Robot Trajectory'</span><span class="p">)</span>
+    <span class="n">plt</span><span class="o">.</span><span class="n">grid</span><span class="p">(</span><span class="kc">True</span><span class="p">)</span>
+    
+    <span class="n">plt</span><span class="o">.</span><span class="n">tight_layout</span><span class="p">()</span>
+    <span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+</div>
+</div>
+</div><div class="jp-Cell jp-CodeCell jp-Notebook-cell">
+<div class="jp-Cell-inputWrapper" tabindex="0">
+<div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
+</div>
+<div class="jp-InputArea jp-Cell-inputArea">
+<div class="jp-InputPrompt jp-InputArea-prompt">In [42]:</div>
+<div class="jp-CodeMirrorEditor jp-Editor jp-InputArea-editor" data-type="inline">
+<div class="cm-editor cm-s-jupyter">
+<div class="highlight hl-ipython3"><pre><span></span><span class="n">simulate_robot_with_kalman_filter</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+</div>
+</div>
 <div class="jp-Cell-outputWrapper">
 <div class="jp-Collapser jp-OutputCollapser jp-Cell-outputCollapser">
 </div>
@@ -8251,7 +8607,20 @@ main {
 </div>
 </div>
 </div>
-</div><div class="jp-Cell jp-CodeCell jp-Notebook-cell jp-mod-noInput">
+</div><div class="jp-Cell jp-CodeCell jp-Notebook-cell">
+<div class="jp-Cell-inputWrapper" tabindex="0">
+<div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
+</div>
+<div class="jp-InputArea jp-Cell-inputArea">
+<div class="jp-InputPrompt jp-InputArea-prompt">In [ ]:</div>
+<div class="jp-CodeMirrorEditor jp-Editor jp-InputArea-editor" data-type="inline">
+<div class="cm-editor cm-s-jupyter">
+<div class="highlight hl-ipython3"><pre><span></span> 
+</pre></div>
+</div>
+</div>
+</div>
+</div>
 <div class="jp-Cell-outputWrapper">
 <div class="jp-Collapser jp-OutputCollapser jp-Cell-outputCollapser">
 </div>
@@ -8270,7 +8639,20 @@ Cell <span class="ansi-green-fg">In[38], line 1</span>
 </div>
 </div>
 </div>
-</div><div class="jp-Cell jp-CodeCell jp-Notebook-cell jp-mod-noOutputs jp-mod-noInput">
+</div><div class="jp-Cell jp-CodeCell jp-Notebook-cell jp-mod-noOutputs">
+<div class="jp-Cell-inputWrapper" tabindex="0">
+<div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
+</div>
+<div class="jp-InputArea jp-Cell-inputArea">
+<div class="jp-InputPrompt jp-InputArea-prompt">In [ ]:</div>
+<div class="jp-CodeMirrorEditor jp-Editor jp-InputArea-editor" data-type="inline">
+<div class="cm-editor cm-s-jupyter">
+<div class="highlight hl-ipython3"><pre><span></span> 
+</pre></div>
+</div>
+</div>
+</div>
+</div>
 </div></div></section></section>
 </div>
 </div>

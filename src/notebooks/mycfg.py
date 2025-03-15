@@ -3,7 +3,7 @@ c = get_config()  #noqa
 
 c.NbConvertApp.export_format = 'slides'
 
-c.TemplateExporter.exclude_input = True
+c.TemplateExporter.exclude_input = False
 c.NbConvertApp.notebooks = [
     "*.ipynb"
 ]

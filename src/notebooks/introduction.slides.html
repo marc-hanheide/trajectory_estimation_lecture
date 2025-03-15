@@ -7436,10 +7436,33 @@ main {
 <div class="reveal">
 <div class="slides">
 <style type="text/css">
+    .reveal p {
+      //line-height: 1.2;
+      margin-top: 0px;
+      margin-bottom: 6px;
+    }
+
+    .reveal ul, .reveal ol {
+      margin-top: 0px;
+      margin-bottom: 0px;
+      margin-left: 0px;
+    }
+
+    .reveal ul ul, .reveal ul ol, .reveal ol ol, .reveal ol ul {
+        margin-left: 0px;
+    }
+
+    .reveal .slides>section,.reveal .slides>section>section {
+        padding: 0 0 0 0;
+    }
+
     .reveal h1, .reveal h2, .reveal h3 {
       /* Custom heading styles */
       color:rgb(134, 38, 124);
+      margin-bottom: 0px;
+      margin-top: 3px;
     }
+
     .footer {
       position: fixed;
       bottom: 0;
@@ -7473,7 +7496,7 @@ main {
 </div>
 <div class="jp-InputArea jp-Cell-inputArea"><div class="jp-InputPrompt jp-InputArea-prompt">
 </div><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput" data-mime-type="text/markdown">
-<h1 id="MA-MOROB-M02:-Trajectory-Estimation-(Semester-1)">MA-MOROB-M02: Trajectory Estimation (Semester 1)<a class="anchor-link" href="#MA-MOROB-M02:-Trajectory-Estimation-(Semester-1)">¶</a></h1><p><em>part of the Programme "Mobile Robotics" (M.Sc.) at the Bonn University</em></p>
+<h1 id="MA-MOROB-M02:-Trajectory-Estimation-(Semester-1)">MA-MOROB-M02: Trajectory Estimation (Semester 1)<a class="anchor-link" href="#MA-MOROB-M02:-Trajectory-Estimation-(Semester-1)">¶</a></h1><p><em>part of the Programme "Mobile Robotics" (M.Sc.) at Bonn University</em></p>
 <h2 id="Methods-for-high-precision-trajectory-estimation-of-mobile-mapping-vehicles-on-crop-fields">Methods for high precision trajectory estimation of mobile mapping vehicles on crop fields<a class="anchor-link" href="#Methods-for-high-precision-trajectory-estimation-of-mobile-mapping-vehicles-on-crop-fields">¶</a></h2>
 </div>
 </div>
@@ -7485,7 +7508,7 @@ main {
 </div>
 <div class="jp-InputArea jp-Cell-inputArea"><div class="jp-InputPrompt jp-InputArea-prompt">
 </div><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput" data-mime-type="text/markdown">
-<h1 id="Problem-Introduction">Problem Introduction<a class="anchor-link" href="#Problem-Introduction">¶</a></h1><!--
+<h2 id="Problem-Introduction">Problem Introduction<a class="anchor-link" href="#Problem-Introduction">¶</a></h2><!--
 * Add robot data recording video here
 * explain to want to come back multiple times, monitor crop growth
 * introduce the problem of robot localisation
@@ -7496,9 +7519,8 @@ main {
 <video autoplay="" controls="" loop="" muted="" width="80%">
 <source src="thorvald-data.mp4" type="video/mp4"/>
 </video></div>
-<ul>
-<li>An Example of Crop Monitoring with a Mobile Robot</li>
-</ul>
+<center>An Example of Crop Monitoring with a Mobile Robot</center>
+<p><strong>Strawberry Producer: "I want to monitor the growth of my individual strawberry plants, identifying underperforming ones"</strong></p>
 </div>
 </div>
 </div>
@@ -7509,24 +7531,13 @@ main {
 </div>
 <div class="jp-InputArea jp-Cell-inputArea"><div class="jp-InputPrompt jp-InputArea-prompt">
 </div><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput" data-mime-type="text/markdown">
-<h1 id="Syllabus-%22Trajectory-Estimation%22">Syllabus "Trajectory Estimation"<a class="anchor-link" href="#Syllabus-%22Trajectory-Estimation%22">¶</a></h1><ol>
-<li><p>Problem Introduction and introduction to the Module</p>
-<ul>
-<li>Learning Outcomes</li>
-<li>Assessment<ul>
-<li>Oral Examination 50%</li>
-<li>Coursework (Jupyter Notebooks), 50%</li>
-</ul>
-</li>
-</ul>
-</li>
-<li><p>Representations of Trajectories</p>
-<ul>
-<li>1 -- 3 D</li>
-<li>Sequence of States, usually in $SE(3)$</li>
-<li>we have to deal with <em>noise</em></li>
-</ul>
-</li>
+<h2 id="Module-%22Trajectory-Estimation%22----Learning-Objectives">Module "Trajectory Estimation" -- Learning Objectives<a class="anchor-link" href="#Module-%22Trajectory-Estimation%22----Learning-Objectives">¶</a></h2><ol>
+<li><strong>Understand and Apply</strong>: Demonstrate a comprehensive understanding of theoretical principles underlying trajectory estimation, including coordinate systems, sensor models, and state estimation techniques.</li>
+<li><strong>Analyse and Evaluate</strong>: Critically analyse various trajectory estimation methods and evaluate their suitability for different environments and applications.</li>
+<li><strong>Design and Implement</strong>: Design and implement appropriate sensor fusion algorithms for accurate trajectory estimation in challenging environments.</li>
+<li><strong>Evaluate Performance</strong>: Assess the performance of trajectory estimation systems using appropriate metrics and validation techniques.</li>
+<li><strong>Problem Solve</strong>: Develop solutions for trajectory estimation in environments with specific challenges, such as GPS-denied areas, dynamic obstacles, or varying terrain.</li>
+<li><strong>Research and Innovate</strong>: Demonstrate awareness of current research trends and innovations in trajectory estimation for mobile sensing platforms.</li>
 </ol>
 </div>
 </div>
@@ -7538,10 +7549,192 @@ main {
 </div>
 <div class="jp-InputArea jp-Cell-inputArea"><div class="jp-InputPrompt jp-InputArea-prompt">
 </div><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput" data-mime-type="text/markdown">
-<h1 id="Global-and-Local-frames-of-reference">Global and Local frames of reference<a class="anchor-link" href="#Global-and-Local-frames-of-reference">¶</a></h1><h4 id="Local">Local<a class="anchor-link" href="#Local">¶</a></h4><ul>
-<li></li>
-<li>Dead reckoning, sources:<ul>
-<li>encoders, IMU</li>
+<h2 id="Draft-Module-Syllabus">Draft Module Syllabus<a class="anchor-link" href="#Draft-Module-Syllabus">¶</a></h2><h3 id="Fundamentals-of-Trajectory-Estimation-and-Problem-Introduction">Fundamentals of Trajectory Estimation and Problem Introduction<a class="anchor-link" href="#Fundamentals-of-Trajectory-Estimation-and-Problem-Introduction">¶</a></h3><ul>
+<li>Coordinate systems and transformations (global vs. local)</li>
+<li>Introduction to state representation and rigid body kinematics</li>
+<li>Applications and challenges in trajectory estimation (example Crop Monitoring and Precision Agriculture)</li>
+<li>Precision vs. accuracy in different application domains</li>
+</ul>
+</div>
+</div>
+</div>
+</div></section><section>
+<div class="jp-Cell jp-MarkdownCell jp-Notebook-cell">
+<div class="jp-Cell-inputWrapper" tabindex="0">
+<div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
+</div>
+<div class="jp-InputArea jp-Cell-inputArea"><div class="jp-InputPrompt jp-InputArea-prompt">
+</div><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput" data-mime-type="text/markdown">
+<h3 id="Global-Localisation-for-Trajectory-Estimation">Global Localisation for Trajectory Estimation<a class="anchor-link" href="#Global-Localisation-for-Trajectory-Estimation">¶</a></h3><ul>
+<li>GNSS/GPS principles and error sources</li>
+<li>RTK and PPK techniques for high-precision positioning</li>
+<li>GNSS limitations in various environments</li>
+</ul>
+<h3 id="Local-Sensors-for-Trajectory-Estimation">Local Sensors for Trajectory Estimation<a class="anchor-link" href="#Local-Sensors-for-Trajectory-Estimation">¶</a></h3><ul>
+<li>Interoception:<ul>
+<li>Inertial Measurement Units (IMUs): principles and types</li>
+<li>Odometry sensors (wheel encoders, visual odometry)</li>
+</ul>
+</li>
+<li>Exteroception: Environmental sensors (LiDAR, cameras, radar)</li>
+</ul>
+</div>
+</div>
+</div>
+</div></section><section>
+<div class="jp-Cell jp-MarkdownCell jp-Notebook-cell">
+<div class="jp-Cell-inputWrapper" tabindex="0">
+<div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
+</div>
+<div class="jp-InputArea jp-Cell-inputArea"><div class="jp-InputPrompt jp-InputArea-prompt">
+</div><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput" data-mime-type="text/markdown">
+<h3 id="Sensor-Fusion-&amp;-Estimation-Theory">Sensor Fusion &amp; Estimation Theory<a class="anchor-link" href="#Sensor-Fusion-&amp;-Estimation-Theory">¶</a></h3><ul>
+<li>Probabilistic state estimation fundamentals</li>
+<li>Least squares estimation</li>
+<li>Kalman filtering: theory and implementation</li>
+<li>Kalman Filter variants (EKF, UKF)</li>
+<li>Particle filters and Monte Carlo methods</li>
+<li>Factor graphs for trajectory estimation</li>
+<li>Smoothing techniques vs. filtering techniques</li>
+</ul>
+<h3 id="Multi-Sensor-Calibration">Multi-Sensor Calibration<a class="anchor-link" href="#Multi-Sensor-Calibration">¶</a></h3><ul>
+<li>Calibration of sensor arrays</li>
+<li>Online calibration techniques</li>
+<li>Sensor degradation detection and handling</li>
+<li>Quality metrics and validation approaches</li>
+</ul>
+</div>
+</div>
+</div>
+</div></section><section>
+<div class="jp-Cell jp-MarkdownCell jp-Notebook-cell">
+<div class="jp-Cell-inputWrapper" tabindex="0">
+<div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
+</div>
+<div class="jp-InputArea jp-Cell-inputArea"><div class="jp-InputPrompt jp-InputArea-prompt">
+</div><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput" data-mime-type="text/markdown">
+<h3 id="Advanced-Topics-in-Trajectory-Estimation">Advanced Topics in Trajectory Estimation<a class="anchor-link" href="#Advanced-Topics-in-Trajectory-Estimation">¶</a></h3><ul>
+<li>Deep learning approaches for state estimation</li>
+<li>Place recognition and loop closure techniques</li>
+<li>Long-term autonomy</li>
+<li>Distributed (multi-agent) trajectory estimation</li>
+</ul>
+<h3 id="Real-World-Applications-and-Limitations">Real World Applications and Limitations<a class="anchor-link" href="#Real-World-Applications-and-Limitations">¶</a></h3><ul>
+<li>Real-time implementation considerations and computational complexity</li>
+<li>Methods for GPS-denied environments</li>
+<li>Dynamic (slow and fast) changing environments</li>
+<li>Example Applications<ul>
+<li>Infrastructure inspection</li>
+<li>Autonomous agricultural vehicles and precision farming</li>
+<li>Indoor mobile robots and warehouse automation</li>
+</ul>
+</li>
+</ul>
+</div>
+</div>
+</div>
+</div></section><section>
+<div class="jp-Cell jp-MarkdownCell jp-Notebook-cell">
+<div class="jp-Cell-inputWrapper" tabindex="0">
+<div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
+</div>
+<div class="jp-InputArea jp-Cell-inputArea"><div class="jp-InputPrompt jp-InputArea-prompt">
+</div><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput" data-mime-type="text/markdown">
+<h2 id="Assessment">Assessment<a class="anchor-link" href="#Assessment">¶</a></h2><ul>
+<li>Oral Examination 50%<ul>
+<li>20 minutes oral examination on the theoretical principles of trajectory estimation</li>
+<li>indicative topics: coordinate systems, sensor models, state estimation techniques, sensor fusion, calibration, and validation</li>
+</ul>
+</li>
+<li>Coursework, 50%<ul>
+<li>Handling different real-world sensor data sets (IMU, LiDAR, camera, GPS)</li>
+<li>Implementing a selection of trajectory estimation algorithms</li>
+<li>Comparative scientific evaluation of their performance</li>
+<li>Implementing a trajectory estimation system in ROS2 (simulation in devcontainer)</li>
+<li>Presentation of results and discussion of findings (assessed)</li>
+</ul>
+</li>
+</ul>
+<div align="middle">
+<img alt="No description has been provided for this image" src="gazebo.png" width="40%"/>
+</div>
+</div>
+</div>
+</div>
+</div></section></section><section><section>
+<div class="jp-Cell jp-MarkdownCell jp-Notebook-cell">
+<div class="jp-Cell-inputWrapper" tabindex="0">
+<div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
+</div>
+<div class="jp-InputArea jp-Cell-inputArea"><div class="jp-InputPrompt jp-InputArea-prompt">
+</div><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput" data-mime-type="text/markdown">
+<h2 id="Mathematical-Representation-of-a-3D-Trajectory">Mathematical Representation of a 3D Trajectory<a class="anchor-link" href="#Mathematical-Representation-of-a-3D-Trajectory">¶</a></h2><p><strong>A robot trajectory refers to the path that a rigid body (robot) follows through space over time</strong></p>
+<p><strong>Includes both the position and orientation</strong></p>
+</div>
+</div>
+</div>
+</div>
+<div class="jp-Cell jp-MarkdownCell jp-Notebook-cell">
+<div class="jp-Cell-inputWrapper" tabindex="0">
+<div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
+</div>
+<div class="jp-InputArea jp-Cell-inputArea"><div class="jp-InputPrompt jp-InputArea-prompt">
+</div><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput" data-mime-type="text/markdown">
+<h2 id="Special-Euclidean-Group-SE(3)">Special Euclidean Group SE(3)<a class="anchor-link" href="#Special-Euclidean-Group-SE(3)">¶</a></h2><p>The most comprehensive representation of any rigid body trajectory is through the Special Euclidean Group in 3 dimensions, denoted as $SE(3)$.</p>
+<p>This representation captures both the position (translation) and orientation (rotation) of a rigid body in 3D space.</p>
+<p>Mathematically, SE(3) can be represented as a 4×4 matrix:</p>
+<p>$$
+\begin{pmatrix} 
+R &amp; \vec{t} \\
+0 &amp; 1 
+\end{pmatrix}
+$$</p>
+<p>Where:</p>
+<ul>
+<li>$R$ is a 3×3 rotation matrix that belongs to the Special Orthogonal Group SO(3)</li>
+<li>$\vec{t}$ is a 3×1 translation vector</li>
+<li>The bottom row [0 0 0 1] completes the homogeneous transformation</li>
+</ul>
+</div>
+</div>
+</div>
+</div></section><section>
+<div class="jp-Cell jp-MarkdownCell jp-Notebook-cell">
+<div class="jp-Cell-inputWrapper" tabindex="0">
+<div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
+</div>
+<div class="jp-InputArea jp-Cell-inputArea"><div class="jp-InputPrompt jp-InputArea-prompt">
+</div><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput" data-mime-type="text/markdown">
+<h2 id="Relevance-for-Robotics">Relevance for Robotics<a class="anchor-link" href="#Relevance-for-Robotics">¶</a></h2><ul>
+<li>This representation allows us to transform points from one coordinate frame to another</li>
+<li>In Robotics often need to relate positions between different reference frames (e.g., robot base frame, world frame, end-effector frame)</li>
+</ul>
+<div align="middle">
+<img alt="No description has been provided for this image" src="frames.svg" width="80%"/>
+</div>
+</div>
+</div>
+</div>
+</div></section><section>
+<div class="jp-Cell jp-MarkdownCell jp-Notebook-cell">
+<div class="jp-Cell-inputWrapper" tabindex="0">
+<div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
+</div>
+<div class="jp-InputArea jp-Cell-inputArea"><div class="jp-InputPrompt jp-InputArea-prompt">
+</div><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput" data-mime-type="text/markdown">
+<h1 id="Properties-of-the-Special-Euclidean-Group-SE(3)">Properties of the Special Euclidean Group SE(3)<a class="anchor-link" href="#Properties-of-the-Special-Euclidean-Group-SE(3)">¶</a></h1><ul>
+<li><p><strong>Rigid Body Transformations</strong>: SE(3) represents all possible rigid body transformations (rotations and translations) in 3D space</p>
+</li>
+<li><p><strong>Structure</strong>:</p>
+<ul>
+<li>6 degrees of freedom (3 for rotation, 3 for translation)</li>
+</ul>
+</li>
+<li><p><strong>Key Properties</strong>:</p>
+<ul>
+<li><strong>Group Structure</strong>: Closed under composition (combining two transformations yields another valid transformation)</li>
+<li><strong>Invertibility</strong>: Every transformation has an inverse</li>
+<li><strong>Non-commutativity</strong>: Order matters ($T_1 \cdot T_2 \neq T_2 \cdot T_1$)</li>
 </ul>
 </li>
 </ul>
@@ -7555,9 +7748,85 @@ main {
 </div>
 <div class="jp-InputArea jp-Cell-inputArea"><div class="jp-InputPrompt jp-InputArea-prompt">
 </div><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput" data-mime-type="text/markdown">
+<h2 id="Time-Parameterisation">Time Parameterisation<a class="anchor-link" href="#Time-Parameterisation">¶</a></h2><p>A complete trajectory representation includes time as a parameter. This can be written as:</p>
+<p>$$T(t) \in SE(3)$$</p>
+<p>Where $T(t)$ represents the pose (position and orientation) of the robot at time $t$.</p>
+<h3 id="Practical-Trajectory-Representations">Practical Trajectory Representations<a class="anchor-link" href="#Practical-Trajectory-Representations">¶</a></h3><p>In practical robotics applications, trajectories are often represented as:</p>
+<ol>
+<li><strong>Discrete Waypoints</strong>: A sequence of poses $(T_1, T_2, ..., T_n)$ that the robot should pass through at specific times $(t_1, t_2, ..., t_n)$.</li>
+<li><strong>Parametric Curves</strong>: Such as splines or polynomials that smoothly interpolate between waypoints.</li>
+<li><strong>Joint Space Trajectories</strong>: For robot manipulators, trajectories are often represented in joint space rather than Cartesian space, as a time-varying vector of joint angles $θ(t)$.</li>
+</ol>
+<div align="middle">
+<img alt="No description has been provided for this image" src="trajectory-illustration.svg" width="80%"/>
+</div>
+</div>
+</div>
+</div>
+</div></section></section><section><section>
+<div class="jp-Cell jp-MarkdownCell jp-Notebook-cell">
+<div class="jp-Cell-inputWrapper" tabindex="0">
+<div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
+</div>
+<div class="jp-InputArea jp-Cell-inputArea"><div class="jp-InputPrompt jp-InputArea-prompt">
+</div><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput" data-mime-type="text/markdown">
+<h2 id="in-2D">in 2D<a class="anchor-link" href="#in-2D">¶</a></h2><h3 id="Special-Euclidean-Group-SE(2)">Special Euclidean Group SE(2)<a class="anchor-link" href="#Special-Euclidean-Group-SE(2)">¶</a></h3><ul>
+<li>Captures both position and orientation in a plane.</li>
+<li>SE(2) can be represented as a 3×3 matrix of the form:</li>
+</ul>
+<p>$$
+\begin{pmatrix} 
+\cos(\theta) &amp; -\sin(\theta) &amp; t_x \\
+\sin(\theta) &amp; \cos(\theta) &amp; t_y \\
+0 &amp; 0 &amp; 1 
+\end{pmatrix}
+$$</p>
+<p>Where:</p>
+<ul>
+<li>The 2×2 rotation matrix in the upper-left represents rotation by angle θ in the plane</li>
+<li>$(t_x, t_y)$ is the 2D translation vector</li>
+<li>The bottom row [0 0 1] completes the homogeneous transformation</li>
+</ul>
+<p>A minimal representation using $(x, y, \theta)$ where $(x, y)$ is the position and $\theta$ is the orientation angle.</p>
+</div>
+</div>
+</div>
+</div></section></section><section><section>
+<div class="jp-Cell jp-MarkdownCell jp-Notebook-cell">
+<div class="jp-Cell-inputWrapper" tabindex="0">
+<div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
+</div>
+<div class="jp-InputArea jp-Cell-inputArea"><div class="jp-InputPrompt jp-InputArea-prompt">
+</div><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput" data-mime-type="text/markdown">
+<h3 id="Specific-2D-Applications">Specific 2D Applications<a class="anchor-link" href="#Specific-2D-Applications">¶</a></h3><p>Several specialized representations appear in 2D robotics:</p>
+<ol>
+<li><strong>Differential drive robots</strong>: Trajectories expressed in terms of left and right wheel velocities $(v_L, v_R)$ or linear and angular velocities $(v, \omega)$</li>
+<li><strong>Ackermann steering</strong> (car-like robots): Trajectories parameterized by speed and steering angle</li>
+<li><strong>Holonomic robots</strong>: Trajectories specified by velocity vectors that can point in any direction independent of orientation</li>
+</ol>
+<h3 id="Practical-Example">Practical Example<a class="anchor-link" href="#Practical-Example">¶</a></h3><p>For a simple differential drive robot following a 2D trajectory, we might represent the robot's state at time $t$ as:</p>
+<p>$$s(t) = (x(t), y(t), \theta(t))$$</p>
+<p>With the kinematic model:</p>
+<p>$$\begin{align}
+\dot{x}(t) &amp;= v(t) \cos(\theta(t)) \\
+\dot{y}(t) &amp;= v(t) \sin(\theta(t)) \\
+\dot{\theta}(t) &amp;= \omega(t)
+\end{align}$$</p>
+<p>Where $v(t)$ is the linear velocity and $\omega(t)$ is the angular velocity at time $t$.</p>
+<p>The 2D representation is not only simpler computationally but is also sufficient for many practical robotics applications, including most ground robots, autonomous vehicles, and planar manipulators.</p>
+</div>
+</div>
+</div>
+</div></section></section><section><section>
+<div class="jp-Cell jp-MarkdownCell jp-Notebook-cell">
+<div class="jp-Cell-inputWrapper" tabindex="0">
+<div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
+</div>
+<div class="jp-InputArea jp-Cell-inputArea"><div class="jp-InputPrompt jp-InputArea-prompt">
+</div><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput" data-mime-type="text/markdown">
 <h1 id="Classes-of-Probabilistic-Sequential-Models:">Classes of Probabilistic Sequential Models:<a class="anchor-link" href="#Classes-of-Probabilistic-Sequential-Models:">¶</a></h1><p><em>Probabilistic Graphical Models</em></p>
-<img alt="pgm" src="pgm-models.svg" width="50%">
-</img></div>
+<p><img alt="pgm" src="pgm-models.svg" width="50%"/></p>
+</div>
 </div>
 </div>
 </div></section><section>
@@ -7600,8 +7869,8 @@ main {
 <li>Rauch-Tung-Striebel smoother (for linear Gaussian systems)</li>
 </ul>
 </li>
-<li>These compute 
-   $$arg max_{x_{1:T}} P(x_{1:T} | y_{1:T})$$
+<li>These compute
+$$arg max_{x_{1:T}} P(x_{1:T} | y_{1:T})$$
 i.e. the most likely complete state trajectory given all observations</li>
 </ul>
 </li>
