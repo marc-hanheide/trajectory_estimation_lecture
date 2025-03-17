@@ -20,6 +20,16 @@ The repository is structured to follow the module's curriculum, covering fundame
 It also offers a ROS2 development environment (devContainer) for students to practice with real-world data and scenarios.
 
 
+## Local Python Installation
+
+1. create a virtual environment: `python3 -m venv .venv`
+2. activate the virtual environment: `source .venv/bin/activate`
+3. install the required packages: `pip install -r requirements.txt`
+
+## Run local Jupyter notebook server
+
+1. start the Jupyter notebook server: `jupyter lab --config ./jupyter_lab_config.py`
+
 ## Generate slides
 
 `jupyter nbconvert --config mycfg.py`
