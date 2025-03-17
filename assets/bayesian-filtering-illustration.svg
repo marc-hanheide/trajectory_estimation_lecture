@@ -1,0 +1,354 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<svg
+   viewBox="0 0 726.49524 456.5166"
+   version="1.1"
+   id="svg19"
+   sodipodi:docname="bayesian-filtering-illustration.svg"
+   inkscape:version="1.3.2 (091e20e, 2023-11-25)"
+   width="726.49524"
+   height="456.5166"
+   xmlns:inkscape="http://www.inkscape.org/namespaces/inkscape"
+   xmlns:sodipodi="http://sodipodi.sourceforge.net/DTD/sodipodi-0.dtd"
+   xmlns="http://www.w3.org/2000/svg"
+   xmlns:svg="http://www.w3.org/2000/svg">
+  <defs
+     id="defs19" />
+  <sodipodi:namedview
+     id="namedview19"
+     pagecolor="#ffffff"
+     bordercolor="#666666"
+     borderopacity="1.0"
+     inkscape:showpageshadow="2"
+     inkscape:pageopacity="0.0"
+     inkscape:pagecheckerboard="0"
+     inkscape:deskcolor="#d1d1d1"
+     inkscape:zoom="1.7263751"
+     inkscape:cx="362.31987"
+     inkscape:cy="225.90687"
+     inkscape:window-width="2048"
+     inkscape:window-height="1199"
+     inkscape:window-x="0"
+     inkscape:window-y="25"
+     inkscape:window-maximized="0"
+     inkscape:current-layer="svg19" />
+  <!-- Background -->
+  <!-- Title -->
+  <text
+     x="351"
+     y="16.016602"
+     text-anchor="middle"
+     font-family="Arial"
+     font-weight="bold"
+     font-size="22px"
+     id="text1">Bayesian Filtering for Robot Localization</text>
+  <!-- Tunnel/Corridor -->
+  <rect
+     x="1"
+     y="176.0166"
+     width="700"
+     height="60"
+     fill="#e9ecef"
+     stroke="#343a40"
+     stroke-width="2"
+     id="rect2" />
+  <!-- Landmark (Pole) -->
+  <rect
+     x="551"
+     y="166.0166"
+     width="10"
+     height="80"
+     fill="#495057"
+     id="rect3" />
+  <text
+     x="556"
+     y="156.0166"
+     text-anchor="middle"
+     font-family="Arial"
+     font-size="14px"
+     id="text3">Landmark</text>
+  <!-- Step 1: Initial Belief -->
+  <text
+     x="51"
+     y="96.016602"
+     font-family="Arial"
+     font-weight="bold"
+     font-size="16px"
+     id="text4">1. Initial Belief</text>
+  <!-- Initial position gaussian distribution -->
+  <g
+     transform="translate(-71.011439,145.28457)"
+     id="g5">
+    <path
+       d="m 100,0 q 30,-5 60,-20 30,-15 60,0 30,15 60,20"
+       fill="none"
+       stroke="#4361ee"
+       stroke-width="2"
+       id="path4" />
+    <text
+       x="190"
+       y="20"
+       text-anchor="middle"
+       font-family="Arial"
+       font-size="12px"
+       fill="#4361ee"
+       id="text5">Initial position uncertainty</text>
+  </g>
+  <!-- Robot in initial position -->
+  <g
+     transform="translate(141,206.0166)"
+     id="g6">
+    <rect
+       x="-15"
+       y="-10"
+       width="30"
+       height="20"
+       rx="5"
+       fill="#4361ee"
+       id="rect5" />
+    <circle
+       cx="-5"
+       cy="5"
+       r="3"
+       fill="#f8f9fa"
+       id="circle5" />
+    <circle
+       cx="5"
+       cy="5"
+       r="3"
+       fill="#f8f9fa"
+       id="circle6" />
+  </g>
+  <!-- Step 2: Prediction Step -->
+  <text
+     x="301"
+     y="96.016602"
+     font-family="Arial"
+     font-weight="bold"
+     font-size="16px"
+     id="text6">2. Prediction (Motion Update)</text>
+  <!-- Motion arrow -->
+  <g
+     id="g7"
+     transform="translate(-49,-23.983398)">
+    <path
+       d="M 190,230 H 350"
+       stroke="#333333"
+       stroke-width="1.5"
+       stroke-dasharray="5, 3"
+       id="path6" />
+    <polygon
+       points="345,235 345,225 355,230 "
+       fill="#333333"
+       id="polygon6" />
+  </g>
+  <!-- Prediction distribution (wider gaussian) -->
+  <g
+     transform="translate(-50.737745,144.70533)"
+     id="g8">
+    <path
+       d="m 299.96687,-0.06597995 q 36.49947,-2.98020565 72.99894,-14.90102805 36.49947,-9.934019 72.99894,0 36.49947,11.9208224 72.99893,14.90102805"
+       fill="none"
+       stroke="#4361ee"
+       stroke-width="2.40861"
+       id="path7" />
+    <text
+       x="375"
+       y="20"
+       text-anchor="middle"
+       font-family="Arial"
+       font-size="12px"
+       fill="#4361ee"
+       id="text7">Motion widens uncertainty</text>
+  </g>
+  <!-- Robot in predicted position -->
+  <g
+     transform="translate(326,206.0166)"
+     id="g9">
+    <rect
+       x="-15"
+       y="-10"
+       width="30"
+       height="20"
+       rx="5"
+       fill="#4361ee"
+       id="rect8" />
+    <circle
+       cx="-5"
+       cy="5"
+       r="3"
+       fill="#f8f9fa"
+       id="circle8" />
+    <circle
+       cx="5"
+       cy="5"
+       r="3"
+       fill="#f8f9fa"
+       id="circle9" />
+  </g>
+  <!-- Step 3: Update Step -->
+  <text
+     x="547.52454"
+     y="96.016602"
+     font-family="Arial"
+     font-weight="bold"
+     font-size="16px"
+     id="text9">3. Measurement Update</text>
+  <!-- Measurement -->
+  <path
+     d="M 326,206.0166 H 551"
+     stroke="#e63946"
+     stroke-width="1.5"
+     stroke-dasharray="5, 3"
+     id="path9" />
+  <text
+     x="388.86765"
+     y="196.0166"
+     font-family="Arial"
+     font-size="12px"
+     fill="#e63946"
+     id="text10">Distance measurement</text>
+  <!-- Measurement distribution (gaussian) -->
+  <g
+     transform="translate(83.64788,143.54683)"
+     id="g11">
+    <path
+       d="m 530,0 q 15,-5 30,-30 15,-20 30,0 15,25 30,30"
+       fill="none"
+       stroke="#e63946"
+       stroke-width="2"
+       id="path10" />
+    <path
+       d="m 205.68361,181.29271 q 14.97803,-6.26049 29.95605,-37.56294 14.97802,-25.04195 29.95604,0 14.97802,31.30245 29.95605,37.56294"
+       fill="none"
+       stroke="#e63946"
+       stroke-width="2.2363"
+       id="path10-2" />
+    <text
+       x="575"
+       y="20"
+       text-anchor="middle"
+       font-family="Arial"
+       font-size="12px"
+       fill="#e63946"
+       id="text11">Measurement uncertainty</text>
+  </g>
+  <!-- Step 4: Posterior Belief -->
+  <text
+     x="189.38969"
+     y="266.9014"
+     font-family="Arial"
+     font-weight="bold"
+     font-size="16px"
+     id="text12">4. Posterior Belief (Combined Estimate)</text>
+  <!-- Combine distributions diagram -->
+  <g
+     transform="translate(-43.786765,328.3336)"
+     id="g15">
+    <!-- Prior belief -->
+    <path
+       d="m 200,0 q 50,-10 100,-25 50,-15 100,0 50,15 100,25"
+       fill="none"
+       stroke="#4361ee"
+       stroke-width="2"
+       id="path12" />
+    <text
+       x="220"
+       y="20"
+       font-family="Arial"
+       font-size="12px"
+       fill="#4361ee"
+       id="text13">Prediction</text>
+    <!-- Likelihood -->
+    <text
+       x="480"
+       y="20"
+       font-family="Arial"
+       font-size="12px"
+       fill="#e63946"
+       id="text14">Measurement</text>
+    <!-- Posterior (narrower, taller gaussian) -->
+    <path
+       d="m 300,0 q 35,-10 50,-30 25,-35 50,0 25,20 50,30"
+       fill="none"
+       stroke="#7209b7"
+       stroke-width="3"
+       id="path14" />
+  </g>
+  <!-- Final robot position -->
+  <g
+     transform="translate(360.7549,205.71757)"
+     id="g16">
+    <rect
+       x="-15"
+       y="-10"
+       width="30"
+       height="20"
+       rx="5"
+       fill="#7209b7"
+       id="rect15" />
+    <circle
+       cx="-5"
+       cy="5"
+       r="3"
+       fill="#f8f9fa"
+       id="circle15" />
+    <circle
+       cx="5"
+       cy="5"
+       r="3"
+       fill="#f8f9fa"
+       id="circle16" />
+  </g>
+  <!-- Legend -->
+  <g
+     transform="translate(551,376.0166)"
+     id="g19">
+    <rect
+       x="0"
+       y="0"
+       width="160"
+       height="80"
+       fill="#ffffff"
+       fill-opacity="0.8"
+       rx="5"
+       stroke="#cccccc"
+       stroke-width="1"
+       id="rect16" />
+    <circle
+       cx="15"
+       cy="20"
+       r="5"
+       fill="#4361ee"
+       id="circle17" />
+    <text
+       x="30"
+       y="25"
+       font-family="Arial"
+       font-size="14px"
+       id="text17">Prediction</text>
+    <circle
+       cx="15"
+       cy="45"
+       r="5"
+       fill="#e63946"
+       id="circle18" />
+    <text
+       x="30"
+       y="50"
+       font-family="Arial"
+       font-size="14px"
+       id="text18">Measurement</text>
+    <circle
+       cx="15"
+       cy="70"
+       r="5"
+       fill="#7209b7"
+       id="circle19" />
+    <text
+       x="30"
+       y="75"
+       font-family="Arial"
+       font-size="14px"
+       id="text19">Combined Result</text>
+  </g>
+</svg>
