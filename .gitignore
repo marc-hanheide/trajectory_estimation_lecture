@@ -60,3 +60,5 @@ src/notebooks/django-errors.log
 src/notebooks/celerybeat-schedule
 
 *.slides.html
+
+.venv/
