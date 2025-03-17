@@ -2,13 +2,7 @@
 // README at: https://github.com/devcontainers/templates/tree/main/src/ubuntu
 {
 	"name": "L-CAS Humble CUDA-OpenGL Devcontainer",
-	"build": {
-		"dockerfile": "./Dockerfile",
-		"args": {
-			"BASE_IMAGE": "lcas.lincoln.ac.uk/lcas/ros-docker-images:jammy-cuda12.2-humble-2"
-		},
-		"context": ".."
-	},
+	"image": "lcas.lincoln.ac.uk/devcontainer/ros2-teaching:4",
 
 	"forwardPorts": [5801],
 	"portsAttributes": {
