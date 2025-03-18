@@ -29,8 +29,8 @@
      inkscape:window-height="1199"
      inkscape:window-x="0"
      inkscape:window-y="25"
-     inkscape:window-maximized="0"
-     inkscape:current-layer="svg19" />
+     inkscape:window-maximized="1"
+     inkscape:current-layer="g15" />
   <!-- Background -->
   <!-- Title -->
   <text
@@ -268,10 +268,10 @@
        id="text14">Measurement</text>
     <!-- Posterior (narrower, taller gaussian) -->
     <path
-       d="m 300,0 q 35,-10 50,-30 25,-35 50,0 25,20 50,30"
+       d="m 339.96867,-2.168297 q 14.74985,-12.011273 21.07121,-36.033817 10.5356,-42.039453 21.07121,0 10.5356,24.022544 21.0712,36.033817"
        fill="none"
        stroke="#7209b7"
-       stroke-width="3"
+       stroke-width="2.1344"
        id="path14" />
   </g>
   <!-- Final robot position -->
