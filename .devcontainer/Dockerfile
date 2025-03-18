@@ -9,10 +9,8 @@ RUN sudo apt-get update && sudo apt-get install -y \
 RUN python3 -m venv ~/.venv
 
 COPY requirements.txt .
-RUN source ~/.venv/bin/activate; \
-    pip install -U -r requirements.txt
+RUN bash -c "source ~/.venv/bin/activate; pip install -U -r requirements.txt"
 
-RUN echo "source ~/.venv/bin/activate" >> ~/.bashrc
 
 
 
